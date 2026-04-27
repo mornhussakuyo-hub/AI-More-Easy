@@ -33,7 +33,7 @@ AI更易办是一个在本地浏览器中美化 AI易办本科生平台旧式页
 2. 打开浏览器扩展管理页：
    - Edge：`edge://extensions/`
    - Chrome：`chrome://extensions/`
-3. 打开右上角的“开发人员模式”。
+3. 打开“开发人员模式”。
 4. 点击“加载解压缩的扩展”。
 5. 选择 `aieban-modern-extension` 这个文件夹。
 6. 重新打开或刷新 AI易办本科生平台。
