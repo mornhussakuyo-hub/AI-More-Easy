@@ -34,10 +34,6 @@ AI更易办是一个在本地浏览器中美化 AI易办本科生平台旧式页
 5. 选择 `aieban-modern-extension` 这个文件夹。
 6. 重新打开或刷新 AI易办本科生平台：
 
-```text
-https://aieban.whu.edu.cn/ebanbenke/ebanbenke_manage.php
-```
-
 安装成功后，登录后的 AI易办页面会自动应用新界面。
 
 ## 更新安装
