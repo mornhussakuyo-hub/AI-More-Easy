@@ -23,7 +23,6 @@
         "src/core/frames.js",
         "src/core/detect.js",
         "src/core/logout.js",
-        "src/core/update-checker.js",
         "src/layout/topbar.js",
         "src/layout/sidebar.js",
         "src/pages/common.js",

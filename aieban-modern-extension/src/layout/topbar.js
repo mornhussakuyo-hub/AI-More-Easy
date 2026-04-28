@@ -14,7 +14,6 @@
         </div>
         <div class="aieban-topbar-actions">
           <div class="aieban-topbar-meta">本科生事务服务平台</div>
-          <button type="button" class="aieban-update-toggle" title="检查更新">↻</button>
           <button type="button" class="aieban-font-toggle"></button>
           <button type="button" class="aieban-watermark-toggle"></button>
           <button type="button" class="aieban-theme-toggle"></button>
@@ -36,6 +35,4 @@
     document.querySelector(".aieban-font-toggle")?.addEventListener("click", () => {
       setFontTheme(getFontTheme() === "sans" ? "literary" : "sans");
     });
-
-    bindUpdateChecker();
   }

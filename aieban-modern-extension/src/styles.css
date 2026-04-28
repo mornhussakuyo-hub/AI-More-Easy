@@ -149,8 +149,7 @@ html.aieban-theme-dark .aieban-mark {
 
 .aieban-theme-toggle,
 .aieban-font-toggle,
-.aieban-watermark-toggle,
-.aieban-update-toggle {
+.aieban-watermark-toggle {
   width: 36px;
   height: 36px;
   border: 1px solid var(--aieban-line);
@@ -181,8 +180,7 @@ html.aieban-theme-dark .aieban-mark {
 
 .aieban-theme-toggle:hover,
 .aieban-font-toggle:hover,
-.aieban-watermark-toggle:hover,
-.aieban-update-toggle:hover {
+.aieban-watermark-toggle:hover {
   border-color: #bfdbfe;
   color: var(--aieban-primary);
   transform: translateY(-1px) rotate(10deg);
@@ -190,115 +188,14 @@ html.aieban-theme-dark .aieban-mark {
 }
 
 .aieban-watermark-toggle:hover,
-.aieban-font-toggle:hover,
-.aieban-update-toggle:hover {
+.aieban-font-toggle:hover {
   transform: translateY(-1px);
 }
 
 .aieban-theme-toggle:active,
 .aieban-font-toggle:active,
-.aieban-watermark-toggle:active,
-.aieban-update-toggle:active {
+.aieban-watermark-toggle:active {
   transform: translateY(0) rotate(0);
-}
-
-.aieban-update-toggle {
-  font-size: 15px;
-  font-weight: 850;
-}
-
-.aieban-update-toggle.is-checking {
-  color: var(--aieban-primary);
-  animation: aieban-update-spin 900ms linear infinite;
-}
-
-.aieban-update-toggle.has-update {
-  border-color: rgba(37, 99, 235, 0.32);
-  background: var(--aieban-primary);
-  color: #ffffff;
-  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.26);
-}
-
-.aieban-update-toggle.is-error {
-  border-color: rgba(239, 68, 68, 0.32);
-  color: #dc2626;
-}
-
-.aieban-update-notice {
-  position: fixed;
-  top: 14px;
-  right: 236px;
-  z-index: 40;
-  min-height: 42px;
-  max-width: min(420px, calc(100vw - 280px));
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px 8px 14px;
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.96);
-  color: var(--aieban-text);
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
-  backdrop-filter: blur(14px);
-  animation: aieban-update-pop 220ms var(--aieban-ease);
-}
-
-.aieban-update-notice span {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 13px;
-  font-weight: 750;
-}
-
-.aieban-update-notice a {
-  flex: 0 0 auto;
-  color: var(--aieban-primary);
-  font-size: 13px;
-  font-weight: 850;
-  text-decoration: none !important;
-}
-
-.aieban-update-notice button {
-  width: 24px;
-  height: 24px;
-  border: 0;
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  background: var(--aieban-accent-soft);
-  color: var(--aieban-muted);
-  cursor: pointer;
-  line-height: 1;
-}
-
-html.aieban-theme-dark .aieban-update-notice {
-  border-color: rgba(96, 165, 250, 0.24);
-  background: rgba(15, 23, 42, 0.94);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
-}
-
-@keyframes aieban-update-spin {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes aieban-update-pop {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 html.aieban-hide-watermark .watermark {

@@ -30,7 +30,6 @@ aieban-modern-extension/
   docs/
     aieban-guide.md          使用指南页面的 Markdown 内容
     maintenance.md           这份维护手册
-    update.md                压缩包发布和半自动更新说明
 
   src/
     content.js               入口，只负责初始化和调度
@@ -42,7 +41,6 @@ aieban-modern-extension/
       frames.js              frameset、顶部 frame、左侧菜单 frame 判断
       detect.js              各页面识别函数
       logout.js              安全退出弹窗和跳转
-      update-checker.js      右上角新版提醒和下载入口
 
     layout/
       topbar.js              顶栏
@@ -72,11 +70,10 @@ aieban-modern-extension/
 3. `core/frames.js`
 4. `core/detect.js`
 5. `core/logout.js`
-6. `core/update-checker.js`
-7. `layout/topbar.js`
-8. `layout/sidebar.js`
-9. `pages/*.js`
-10. `content.js`
+6. `layout/topbar.js`
+7. `layout/sidebar.js`
+8. `pages/*.js`
+9. `content.js`
 
 最后加载 `content.js`，因为它会调用前面所有文件里定义的函数。
 
@@ -223,14 +220,12 @@ button { ... }
 - 左侧导航、收藏、折叠：`layout/sidebar.js`
 - 白天/夜间模式逻辑：`core/preferences.js`
 - 安全退出弹窗：`core/logout.js`
-- 更新提醒地址和检查逻辑：`core/constants.js` 的 `UPDATE_MANIFEST_URL`、`core/update-checker.js`
 - 页面是否命中：`core/detect.js`
 - 登录页：`pages/login.js`
 - 日历控件：`pages/datepicker.js`
 - 成绩页：`pages/grade-guide.js`
 - 使用指南文案：`docs/aieban-guide.md` 和 `core/constants.js`
 - 所有视觉样式：`src/styles.css`
-- 压缩包发布和更新脚本：`scripts/package.ps1`、`scripts/update.ps1`、`docs/update.md`
 
 ## 验证命令
 

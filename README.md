@@ -49,23 +49,6 @@ AI更易办是一个在本地浏览器中美化 AI易办本科生平台旧式页
 3. 找到 AI更易办，点击“重新加载”。
 4. 刷新 AI易办页面。
 
-如果你是通过压缩包分发，可以配置扩展内置的更新提醒。开发者发布新版 `latest.json` 和 zip 后，扩展会在右上角提示新版并给出下载链接。
-
-配置位置：
-
-```js
-// aieban-modern-extension/src/core/constants.js
-const UPDATE_MANIFEST_URL = "你的 latest.json 地址";
-```
-
-也可以使用项目里的本地更新脚本。开发者发布新版 `latest.json` 和 zip 后，在项目根目录运行：
-
-```powershell
-.\scripts\update.ps1 -ManifestUrl "你的 latest.json 地址"
-```
-
-脚本会下载新版、校验文件并替换本地扩展。完成后仍需要到 `edge://extensions/` 或 `chrome://extensions/` 点击“重新加载”。更多说明见 `aieban-modern-extension/docs/update.md`。
-
 ## 隐私与权限
 
 扩展目前只通过 content script 作用于：
@@ -93,7 +76,6 @@ http://aieban.whu.edu.cn/eban/*
 - `assets/icons/`：扩展图标，包含 16、32、48、128 像素版本。
 - `docs/aieban-guide.md`：使用指南内容。
 - `docs/maintenance.md`：从零开始的维护手册、目录地图和新增页面教程。
-- `docs/update.md`：不上架扩展商店时的压缩包更新方案。
 
 修改后可以用下面的命令做一次基础语法检查：
 

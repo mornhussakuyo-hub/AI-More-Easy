@@ -5,9 +5,6 @@
   const SIDEBAR_KEY = "aieban-modern-sidebar-collapsed";
   const FAVORITES_KEY = "aieban-modern-favorites";
   const WATERMARK_KEY = "aieban-modern-hide-watermark";
-  const UPDATE_STATE_KEY = "aieban-modern-update-state";
-  const UPDATE_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000;
-  const UPDATE_MANIFEST_URL = "";
   const EMBLEM_LIGHT = chrome.runtime.getURL("assets/sai-emblem.png");
   const EMBLEM_DARK = chrome.runtime.getURL("assets/sai-emblem-white.png");
 
