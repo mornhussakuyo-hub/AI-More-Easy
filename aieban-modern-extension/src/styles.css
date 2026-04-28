@@ -108,7 +108,8 @@ html.aieban-theme-dark .aieban-mark {
   gap: 12px;
 }
 
-.aieban-theme-toggle {
+.aieban-theme-toggle,
+.aieban-watermark-toggle {
   width: 36px;
   height: 36px;
   border: 1px solid var(--aieban-line);
@@ -125,15 +126,33 @@ html.aieban-theme-dark .aieban-mark {
   transition: background-color 180ms var(--aieban-ease), border-color 180ms var(--aieban-ease), color 180ms var(--aieban-ease), transform 180ms var(--aieban-ease), box-shadow 180ms var(--aieban-ease);
 }
 
-.aieban-theme-toggle:hover {
+.aieban-watermark-toggle {
+  font-family: var(--aieban-font);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.aieban-theme-toggle:hover,
+.aieban-watermark-toggle:hover {
   border-color: #bfdbfe;
   color: var(--aieban-primary);
   transform: translateY(-1px) rotate(10deg);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
 }
 
-.aieban-theme-toggle:active {
+.aieban-watermark-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.aieban-theme-toggle:active,
+.aieban-watermark-toggle:active {
   transform: translateY(0) rotate(0);
+}
+
+html.aieban-hide-watermark .watermark {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .aieban-sidebar {
@@ -1222,6 +1241,250 @@ html.aieban-theme-dark .aieban-qq-button {
   color: #bfdbfe !important;
 }
 
+.aieban-award-page {
+  background: #f8fafc !important;
+}
+
+html.aieban-theme-dark .aieban-award-page {
+  background: #0f172a !important;
+}
+
+.aieban-award-hero,
+.aieban-award-actions,
+.aieban-award-legend,
+.aieban-award-empty-list {
+  width: min(960px, 100%);
+  box-sizing: border-box;
+}
+
+.aieban-award-hero {
+  margin: 0 0 16px;
+  padding: 20px 22px;
+  border: 1px solid var(--aieban-line);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 54%, #f8fafc 100%);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+  animation: aieban-fade-up 180ms var(--aieban-ease);
+}
+
+html.aieban-theme-dark .aieban-award-hero {
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.14) 0%, #111827 56%, #0f172a 100%);
+}
+
+.aieban-award-kicker {
+  margin-bottom: 5px;
+  color: var(--aieban-primary);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.aieban-award-hero h1 {
+  margin: 0 !important;
+  color: var(--aieban-text);
+  font-size: 24px !important;
+  font-weight: 900;
+  line-height: 1.25 !important;
+}
+
+.aieban-award-hero p {
+  margin: 8px 0 0 !important;
+  color: var(--aieban-muted);
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+
+.aieban-award-actions,
+.aieban-award-legend {
+  margin: 0 0 16px;
+  padding: 16px;
+  border: 1px solid var(--aieban-line);
+  border-radius: 14px;
+  background: var(--aieban-panel);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  animation: aieban-fade-up 200ms var(--aieban-ease);
+}
+
+.aieban-award-action-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.aieban-award-action-head h2,
+.aieban-award-legend h2,
+.aieban-award-empty-card h2 {
+  margin: 0 !important;
+  color: var(--aieban-text);
+  font-size: 16px !important;
+  font-weight: 860;
+  line-height: 1.35 !important;
+}
+
+.aieban-award-action-head span {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--aieban-accent-soft);
+  color: var(--aieban-muted);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.aieban-award-action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.aieban-award-action-card {
+  min-height: 136px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--aieban-line);
+  border-radius: 13px;
+  background: #fbfdff;
+  transition: border-color 170ms var(--aieban-ease), box-shadow 170ms var(--aieban-ease), transform 170ms var(--aieban-ease);
+}
+
+html.aieban-theme-dark .aieban-award-action-card {
+  background: rgba(148, 163, 184, 0.07);
+}
+
+.aieban-award-action-card:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 16px 32px rgba(37, 99, 235, 0.1);
+  transform: translateY(-2px);
+}
+
+.aieban-award-action-card.is-disabled {
+  opacity: 0.72;
+}
+
+.aieban-award-action-card h3 {
+  margin: 0 !important;
+  color: var(--aieban-text);
+  font-size: 17px !important;
+  font-weight: 880;
+  line-height: 1.35 !important;
+}
+
+.aieban-award-action-card p {
+  margin: 6px 0 0 !important;
+  color: var(--aieban-muted);
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+}
+
+.aieban-award-form,
+.aieban-award-form input[type="submit"],
+.aieban-award-form button {
+  width: 100% !important;
+}
+
+.aieban-award-form input[disabled],
+.aieban-award-form button[disabled] {
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+  opacity: 0.72;
+}
+
+.aieban-award-closed {
+  width: min(960px, 100%);
+  box-sizing: border-box;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid #fed7aa;
+  border-radius: 13px;
+  background: #fff7ed;
+  color: #c2410c;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+html.aieban-theme-dark .aieban-award-closed {
+  border-color: rgba(251, 146, 60, 0.34);
+  background: rgba(251, 146, 60, 0.12);
+  color: #fdba74;
+}
+
+.aieban-award-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin-top: 12px;
+}
+
+.aieban-award-legend-grid div {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--aieban-text);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.aieban-award-legend-grid span {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  margin-top: 5px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.12);
+}
+
+.aieban-award-legend-grid .is-black {
+  background: #111827;
+}
+
+.aieban-award-legend-grid .is-red {
+  background: #ef4444;
+}
+
+.aieban-award-legend-grid .is-blue {
+  background: #2563eb;
+}
+
+.aieban-award-legend-grid .is-green {
+  background: #22c55e;
+}
+
+.aieban-award-legend p {
+  margin: 12px 0 0 !important;
+  color: var(--aieban-muted);
+  font-size: 13px !important;
+}
+
+.aieban-award-empty-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.aieban-award-empty-card {
+  padding: 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+html.aieban-theme-dark .aieban-award-empty-card {
+  border-color: #334155;
+  background: rgba(17, 24, 39, 0.7);
+}
+
+.aieban-award-empty-card p {
+  margin: 8px 0 0 !important;
+  color: var(--aieban-muted);
+  font-size: 13px !important;
+}
+
 .aieban-party-notice {
   width: min(900px, 100%);
   box-sizing: border-box;
@@ -2186,23 +2449,206 @@ html.aieban-theme-dark .aieban-content fieldset {
 
 .aieban-login-page {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
   padding: 32px !important;
   background:
-    radial-gradient(circle at 20% 10%, rgba(33, 88, 200, 0.13), transparent 32%),
-    radial-gradient(circle at 80% 0%, rgba(15, 118, 110, 0.13), transparent 28%),
+    radial-gradient(circle at 18% 12%, rgba(37, 99, 235, 0.16), transparent 30%),
+    radial-gradient(circle at 82% 4%, rgba(20, 184, 166, 0.13), transparent 28%),
     var(--aieban-bg) !important;
 }
 
-.aieban-login-page form {
-  width: min(440px, calc(100vw - 32px));
+html.aieban-theme-dark .aieban-login-page {
+  background:
+    radial-gradient(circle at 18% 12%, rgba(96, 165, 250, 0.16), transparent 30%),
+    radial-gradient(circle at 82% 4%, rgba(45, 212, 191, 0.1), transparent 28%),
+    var(--aieban-bg) !important;
 }
 
-.aieban-login-page .aieban-table,
-.aieban-login-page table {
+.aieban-login-shell {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  place-items: center;
+}
+
+.aieban-login-card {
+  width: min(760px, calc(100vw - 32px));
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1fr);
+  gap: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--aieban-line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 26px 80px rgba(15, 23, 42, 0.14);
+  backdrop-filter: blur(16px);
+  animation: aieban-fade-up 220ms var(--aieban-ease);
+}
+
+html.aieban-theme-dark .aieban-login-card {
+  background: rgba(17, 24, 39, 0.92);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.aieban-login-hero {
+  min-height: 360px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+  background:
+    linear-gradient(150deg, rgba(37, 99, 235, 0.1), transparent 44%),
+    linear-gradient(330deg, rgba(20, 184, 166, 0.12), transparent 46%),
+    #f8fafc;
+}
+
+html.aieban-theme-dark .aieban-login-hero {
+  background:
+    linear-gradient(150deg, rgba(96, 165, 250, 0.13), transparent 44%),
+    linear-gradient(330deg, rgba(45, 212, 191, 0.1), transparent 46%),
+    #0f172a;
+}
+
+.aieban-login-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.aieban-login-brand .aieban-emblem {
+  width: 48px;
+  height: 48px;
+}
+
+.aieban-login-kicker {
+  color: var(--aieban-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.aieban-login-brand h1 {
+  margin: 2px 0 0 !important;
+  color: var(--aieban-text);
+  font-size: 24px !important;
+  font-weight: 900;
+  line-height: 1.2 !important;
+}
+
+.aieban-login-copy {
+  margin: 24px 0 0 !important;
+  color: var(--aieban-muted);
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+.aieban-login-panel {
+  box-sizing: border-box;
+  display: grid;
+  align-content: center;
+  padding: 34px 32px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+html.aieban-theme-dark .aieban-login-panel {
+  background: rgba(17, 24, 39, 0.78);
+}
+
+.aieban-login-form,
+.aieban-login-form table,
+.aieban-login-table {
   width: 100% !important;
-  box-shadow: var(--aieban-shadow);
+  border: 0 !important;
+  border-collapse: separate !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.aieban-login-form tbody,
+.aieban-login-form tr,
+.aieban-login-form td {
+  display: contents;
+  width: 100% !important;
+  box-sizing: border-box;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--aieban-text);
+  text-align: left !important;
+}
+
+.aieban-login-form tr {
+  margin: 0;
+}
+
+.aieban-login-form td:empty,
+.aieban-login-form tr:empty {
+  display: none !important;
+}
+
+.aieban-login-fields {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+}
+
+.aieban-login-field {
+  display: grid;
+  gap: 6px;
+  color: var(--aieban-muted);
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.aieban-login-field.is-submit {
+  margin-top: 4px;
+}
+
+.aieban-login-form input[type="text"],
+.aieban-login-form input[type="password"],
+.aieban-login-form input:not([type]),
+.aieban-login-form select {
+  width: 100% !important;
+  height: 44px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  background: #f8fafc;
+  border-color: #d8e0ec;
+  box-shadow: none;
+}
+
+html.aieban-theme-dark .aieban-login-form input[type="text"],
+html.aieban-theme-dark .aieban-login-form input[type="password"],
+html.aieban-theme-dark .aieban-login-form input:not([type]),
+html.aieban-theme-dark .aieban-login-form select {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.aieban-login-form img {
+  display: none !important;
+}
+
+.aieban-login-form input[type="submit"],
+.aieban-login-form input[type="button"],
+.aieban-login-form button {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.aieban-login-form a {
+  color: var(--aieban-primary) !important;
+  text-decoration: none !important;
+  font-weight: 700;
+}
+
+.aieban-login-form a:hover {
+  text-decoration: underline !important;
 }
 
 .watermark {
@@ -2312,5 +2758,33 @@ html.aieban-theme-dark .aieban-content fieldset {
   .aieban-party-policy-actions,
   .aieban-party-resource-actions {
     grid-template-columns: 1fr;
+  }
+
+  .aieban-award-action-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .aieban-award-action-grid,
+  .aieban-award-legend-grid,
+  .aieban-award-empty-list {
+    grid-template-columns: 1fr;
+  }
+
+  .aieban-login-page {
+    padding: 18px !important;
+  }
+
+  .aieban-login-card {
+    grid-template-columns: 1fr;
+  }
+
+  .aieban-login-hero {
+    min-height: 0;
+    padding: 24px 24px 18px;
+  }
+
+  .aieban-login-panel {
+    padding: 24px;
   }
 }

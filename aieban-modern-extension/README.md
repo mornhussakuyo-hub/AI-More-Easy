@@ -56,6 +56,8 @@ AI更易办是一个在本地浏览器中美化 AI易办本科生平台旧式页
 ```text
 https://aieban.whu.edu.cn/ebanbenke/*
 http://aieban.whu.edu.cn/ebanbenke/*
+https://aieban.whu.edu.cn/eban/*
+http://aieban.whu.edu.cn/eban/*
 ```
 
 它没有后台服务，没有远程接口，也没有申请额外浏览器权限。页面收藏、夜间模式、导航收起状态等偏好保存在浏览器本地 `localStorage` 中。

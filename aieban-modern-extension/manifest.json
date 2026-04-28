@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AI更易办",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "让事更更容易办！",
   "icons": {
     "16": "assets/icons/icon-16.png",
@@ -13,7 +13,9 @@
     {
       "matches": [
         "https://aieban.whu.edu.cn/ebanbenke/*",
-        "http://aieban.whu.edu.cn/ebanbenke/*"
+        "http://aieban.whu.edu.cn/ebanbenke/*",
+        "https://aieban.whu.edu.cn/eban/*",
+        "http://aieban.whu.edu.cn/eban/*"
       ],
       "js": ["src/content.js"],
       "css": ["src/styles.css"],

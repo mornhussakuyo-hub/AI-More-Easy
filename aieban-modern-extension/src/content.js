@@ -6,6 +6,7 @@
   const THEME_KEY = "aieban-modern-theme";
   const SIDEBAR_KEY = "aieban-modern-sidebar-collapsed";
   const FAVORITES_KEY = "aieban-modern-favorites";
+  const WATERMARK_KEY = "aieban-modern-hide-watermark";
   const EMBLEM_LIGHT = chrome.runtime.getURL("assets/sai-emblem.png");
   const EMBLEM_DARK = chrome.runtime.getURL("assets/sai-emblem-white.png");
 
@@ -125,9 +126,45 @@
     applyThemeToAllFrames(theme);
   }
 
+  function isWatermarkHidden() {
+    return localStorage.getItem(WATERMARK_KEY) === "true";
+  }
+
+  function applyWatermarkPreference(hidden = isWatermarkHidden()) {
+    document.documentElement.classList.toggle("aieban-hide-watermark", hidden);
+    document.querySelectorAll(".aieban-watermark-toggle").forEach((button) => {
+      button.textContent = hidden ? "显" : "隐";
+      button.setAttribute("aria-label", hidden ? "显示背景水印" : "隐藏背景水印");
+      button.title = hidden ? "显示背景水印" : "隐藏背景水印";
+    });
+  }
+
+  function applyWatermarkPreferenceToAllFrames(hidden) {
+    applyWatermarkPreference(hidden);
+    try {
+      Array.from(window.top.frames).forEach((frame) => {
+        frame.document.documentElement.classList.toggle("aieban-hide-watermark", hidden);
+        frame.document.querySelectorAll(".aieban-watermark-toggle").forEach((button) => {
+          button.textContent = hidden ? "显" : "隐";
+          button.setAttribute("aria-label", hidden ? "显示背景水印" : "隐藏背景水印");
+          button.title = hidden ? "显示背景水印" : "隐藏背景水印";
+        });
+      });
+    } catch {
+      // Some frames may still be loading.
+    }
+  }
+
+  function setWatermarkHidden(hidden) {
+    localStorage.setItem(WATERMARK_KEY, String(hidden));
+    applyWatermarkPreferenceToAllFrames(hidden);
+  }
+
   applyTheme();
+  applyWatermarkPreference();
   window.addEventListener("storage", (event) => {
     if (event.key === THEME_KEY) applyTheme(event.newValue === "dark" ? "dark" : "light");
+    if (event.key === WATERMARK_KEY) applyWatermarkPreference(event.newValue === "true");
   });
 
   function enhanceFrameset() {
@@ -173,6 +210,10 @@
     return PAGE.includes("jiangcheng_chaxunjifen") || !!document.querySelector('a[href*="wbnewsid=8541"]');
   }
 
+  function isAnnualAwardPage() {
+    return PAGE.includes("pingyou_shenbao") || !!document.forms.gerenshenbao || !!document.forms.jitishenbao;
+  }
+
   function isGradePage() {
     return PAGE.includes("chengji_chaxun") || !!document.querySelector('form[action*="chengji_chaxun_toexcel"]');
   }
@@ -189,6 +230,10 @@
   function isGuidePage() {
     const bodyText = text(document.body);
     return PAGE.includes("%e4%bd%bf%e7%94%a8%e6%8c%87%e5%8d%97") || (bodyText.includes("使用指南") && bodyText.includes("访问路径") && bodyText.includes("功能概览"));
+  }
+
+  function isLoginPage() {
+    return !!document.querySelector("form#loginform, form[name='loginform']") || (document.querySelector('input[type="password"]') && text(document.body).includes("登录"));
   }
 
   function collectMenuSections() {
@@ -423,14 +468,20 @@
         </div>
         <div class="aieban-topbar-actions">
           <div class="aieban-topbar-meta">本科生事务服务平台</div>
+          <button type="button" class="aieban-watermark-toggle"></button>
           <button type="button" class="aieban-theme-toggle"></button>
         </div>
       </header>
     `;
     applyTheme();
+    applyWatermarkPreference();
 
     document.querySelector(".aieban-theme-toggle")?.addEventListener("click", () => {
       setTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+
+    document.querySelector(".aieban-watermark-toggle")?.addEventListener("click", () => {
+      setWatermarkHidden(!isWatermarkHidden());
     });
   }
 
@@ -1716,9 +1767,248 @@
     });
   }
 
+  function enhanceLoginPage() {
+    if (!isLoginPage()) return false;
+
+    document.body.classList.add("aieban-login-page");
+
+    const form = document.querySelector("form#loginform, form[name='loginform']") || document.querySelector('input[type="password"]')?.closest("form");
+    if (!form || document.querySelector(".aieban-login-shell")) return true;
+
+    form.classList.add("aieban-login-form");
+
+    const shell = document.createElement("main");
+    shell.className = "aieban-login-shell";
+    shell.innerHTML = `
+      <section class="aieban-login-card" aria-label="AI易办登录">
+        <div class="aieban-login-hero">
+          <div class="aieban-login-brand">
+            <img class="aieban-emblem" src="${getTheme() === "dark" ? EMBLEM_DARK : EMBLEM_LIGHT}" alt="人工智能学院院徽">
+            <div>
+              <div class="aieban-login-kicker">AI更易办</div>
+              <h1>欢迎回来</h1>
+            </div>
+          </div>
+          <p class="aieban-login-copy">登录后继续使用本科生事务服务平台。</p>
+        </div>
+        <div class="aieban-login-panel">
+          <div class="aieban-login-form-slot"></div>
+        </div>
+      </section>
+    `;
+
+    const slot = shell.querySelector(".aieban-login-form-slot");
+    form.before(shell);
+    slot.appendChild(form);
+
+    form.querySelectorAll("table").forEach((table) => {
+      table.classList.add("aieban-login-table");
+      table.removeAttribute("border");
+      table.removeAttribute("width");
+    });
+
+    const username = form.querySelector('input[name="username"], input[type="text"]');
+    const password = form.querySelector('input[name="password"], input[type="password"]');
+    const identity = form.querySelector('select[name="shenfen"], select[name="select1"], select');
+    const submit = form.querySelector('input[type="submit"], button[type="submit"], input[name="submit"]');
+    const controls = [username, password, identity, submit].filter(Boolean);
+    if (controls.length >= 3 && !form.querySelector(".aieban-login-fields")) {
+      const fields = document.createElement("div");
+      fields.className = "aieban-login-fields";
+
+      controls.forEach((control) => {
+        const row = document.createElement("label");
+        row.className = "aieban-login-field";
+        if (control === submit) row.classList.add("is-submit");
+
+        const label = document.createElement("span");
+        if (control === username) {
+          label.textContent = "账号";
+        } else if (control === password) {
+          label.textContent = "密码";
+        } else if (control === identity) {
+          label.textContent = "身份";
+        } else {
+          label.textContent = "";
+        }
+
+        const parent = control.parentElement;
+        fields.appendChild(row);
+        if (label.textContent) row.appendChild(label);
+        row.appendChild(control);
+
+        if (parent && parent !== form && !text(parent) && parent.querySelectorAll("input, select, button").length === 0) {
+          parent.remove();
+        }
+      });
+
+      slot.appendChild(fields);
+      form.replaceChildren(fields);
+    }
+
+    form.querySelectorAll('input[type="text"], input:not([type]), input[type="password"]').forEach((input) => {
+      const name = `${input.name || ""} ${input.id || ""}`.toLowerCase();
+      if (!input.placeholder) {
+        if (input.type === "password") {
+          input.placeholder = "请输入密码";
+        } else if (name.includes("user") || name.includes("name") || name.includes("no") || name.includes("account")) {
+          input.placeholder = "请输入学号或账号";
+        }
+      }
+    });
+
+    form.querySelectorAll('input[type="submit"], input[type="button"], button').forEach((button) => {
+      const label = text(button) || button.value || "";
+      const isSubmit = button.matches('input[type="submit"], button[type="submit"]');
+      if (isSubmit || /login|登陆|登录/i.test(label) || !label.trim()) {
+        if (button.tagName === "INPUT") {
+          button.value = "登录";
+        } else {
+          button.textContent = "登录";
+        }
+      }
+    });
+
+    applyTheme();
+    return true;
+  }
+
+  function enhanceAnnualAwardPage() {
+    if (!isAnnualAwardPage() || document.querySelector(".aieban-award-hero")) return;
+
+    document.body.classList.add("aieban-award-page");
+
+    const personalForm = document.forms.gerenshenbao || document.querySelector('form[action*="pingyou_shenbao_geren"]');
+    const groupForm = document.forms.jitishenbao || document.querySelector('form[action*="pingyou_shenbao_jiti"]');
+    const forms = [personalForm, groupForm].filter(Boolean);
+    const oldActionTable = forms[0]?.closest("table");
+    const isClosed = forms.length > 0 && forms.every((form) => form.querySelector('input[type="submit"], button')?.disabled);
+
+    const hero = document.createElement("section");
+    hero.className = "aieban-award-hero";
+    hero.innerHTML = `
+      <div>
+        <div class="aieban-award-kicker">年度评优</div>
+        <h1>年度评优申报</h1>
+        <p>通过本平台提交评优申报，具体要求和时间安排以学院通知为准。</p>
+      </div>
+    `;
+
+    const welcome = document.querySelector(".aieban-welcome");
+    if (welcome) {
+      welcome.after(hero);
+    } else if (oldActionTable) {
+      oldActionTable.before(hero);
+    } else {
+      document.body.prepend(hero);
+    }
+
+    const actionPanel = document.createElement("section");
+    actionPanel.className = "aieban-award-actions";
+    actionPanel.innerHTML = `
+      <div class="aieban-award-action-head">
+        <h2>申报入口</h2>
+        <span>${isClosed ? "当前不可填报" : "开放填报中"}</span>
+      </div>
+      <div class="aieban-award-action-grid"></div>
+    `;
+    const grid = actionPanel.querySelector(".aieban-award-action-grid");
+
+    const createActionCard = (form, title, desc, buttonText) => {
+      const card = document.createElement("article");
+      card.className = "aieban-award-action-card";
+
+      const submit = form?.querySelector('input[type="submit"], button');
+      if (submit) {
+        if (submit.tagName === "INPUT") {
+          submit.value = buttonText;
+        } else {
+          submit.textContent = buttonText;
+        }
+        if (submit.disabled) card.classList.add("is-disabled");
+      } else {
+        card.classList.add("is-disabled");
+      }
+
+      card.innerHTML = `
+        <div>
+          <h3>${title}</h3>
+          <p>${desc}</p>
+        </div>
+        <div class="aieban-award-form-slot"></div>
+      `;
+      const slot = card.querySelector(".aieban-award-form-slot");
+      if (form) {
+        form.classList.add("aieban-award-form");
+        slot.appendChild(form);
+      } else {
+        const disabled = document.createElement("button");
+        disabled.type = "button";
+        disabled.disabled = true;
+        disabled.textContent = "暂无入口";
+        slot.appendChild(disabled);
+      }
+      return card;
+    };
+
+    grid.appendChild(createActionCard(personalForm, "先进个人", "填写个人年度评优申报材料。", "填写先进个人申报表"));
+    grid.appendChild(createActionCard(groupForm, "先进集体", "填写集体年度评优申报材料。", "填写先进集体申报表"));
+    hero.after(actionPanel);
+
+    let anchor = actionPanel;
+    if (isClosed) {
+      const closed = document.createElement("div");
+      closed.className = "aieban-award-closed";
+      closed.textContent = "申报截止时间已过，当前不能再进行填报和修改。";
+      actionPanel.after(closed);
+      anchor = closed;
+    }
+
+    const legend = document.createElement("section");
+    legend.className = "aieban-award-legend";
+    legend.innerHTML = `
+      <h2>状态说明</h2>
+      <div class="aieban-award-legend-grid">
+        <div><span class="is-black"></span>团支部、班级和推荐单位负责人均未检查确认</div>
+        <div><span class="is-red"></span>推荐单位负责人尚未检查确认</div>
+        <div><span class="is-blue"></span>所在团支部和班级负责人尚未检查确认</div>
+        <div><span class="is-green"></span>团支部、班级和推荐单位负责人均已检查确认</div>
+      </div>
+      <p>请确保截止前申报奖项状态变为绿色。</p>
+    `;
+    anchor.after(legend);
+
+    const empty = document.createElement("section");
+    empty.className = "aieban-award-empty-list";
+    empty.innerHTML = `
+      <div class="aieban-award-empty-card">
+        <h2>先进集体申报表</h2>
+        <p>暂无已填报的先进集体申报表。</p>
+      </div>
+      <div class="aieban-award-empty-card">
+        <h2>先进个人申报表</h2>
+        <p>暂无已填报的先进个人申报表。</p>
+      </div>
+    `;
+    legend.after(empty);
+
+    if (oldActionTable) oldActionTable.remove();
+
+    Array.from(document.querySelectorAll("strong")).forEach((node) => {
+      const value = text(node);
+      const fontCount = node.querySelectorAll("font").length;
+      if ((value.includes("说明") && value.includes("颜色")) || fontCount >= 4) node.remove();
+    });
+
+    Array.from(document.querySelectorAll('a[name="a"]')).forEach((node) => {
+      if (text(node).includes("暂无") || text(node).includes("申报表")) node.remove();
+    });
+  }
+
   function enhanceMainFrame() {
     document.documentElement.classList.add("aieban-modern-frame", "aieban-modern-main-frame");
     document.body.classList.add("aieban-content");
+    const enhancedLoginPage = enhanceLoginPage();
     if (renderGuidePage()) return;
 
     const enhancedGradePage = enhanceGradePage();
@@ -1732,14 +2022,12 @@
     enhanceSchoolLeavePage();
     enhanceLeavePage();
     enhanceIdeologyScorePage();
+    enhanceAnnualAwardPage();
     enhanceDateTimePicker();
-
-    if (document.querySelector("form#loginform, form[name='loginform']")) {
-      document.body.classList.add("aieban-login-page");
-    }
 
     document.querySelectorAll("table").forEach((table) => {
       if (table.closest(".xdsoft_datetimepicker")) return;
+      if (enhancedLoginPage && table.closest(".aieban-login-card")) return;
 
       if (document.body.classList.contains("aieban-attendance-page")) {
         const scheduleTable = table.closest(".aieban-attendance-table");
