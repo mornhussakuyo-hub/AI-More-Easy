@@ -12,7 +12,11 @@
   --aieban-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
   --aieban-shadow-hover: 0 22px 52px rgba(15, 23, 42, 0.12);
   --aieban-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --aieban-font: "HarmonyOS Sans SC", "MiSans", "OPPO Sans", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+  --aieban-literary-font: "LXGW WenKai Screen", "LXGW WenKai", "霞鹜文楷", "Kaiti SC", "STKaiti", "KaiTi", "楷体", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+  --aieban-literary-display-font: "LXGW WenKai Screen", "LXGW WenKai", "霞鹜文楷", "FZKai-Z03", "Kaiti SC", "STKaiti", "KaiTi", "楷体", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  --aieban-sans-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", "HarmonyOS Sans SC", "MiSans", "OPPO Sans", Arial, sans-serif;
+  --aieban-font: var(--aieban-literary-font);
+  --aieban-display-font: var(--aieban-literary-display-font);
 }
 
 html.aieban-theme-dark {
@@ -30,6 +34,16 @@ html.aieban-theme-dark {
   --aieban-shadow-hover: 0 22px 52px rgba(0, 0, 0, 0.36);
 }
 
+html.aieban-font-sans {
+  --aieban-font: var(--aieban-sans-font);
+  --aieban-display-font: var(--aieban-sans-font);
+}
+
+html.aieban-font-literary {
+  --aieban-font: var(--aieban-literary-font);
+  --aieban-display-font: var(--aieban-literary-display-font);
+}
+
 html.aieban-modern-frame,
 html.aieban-modern-frame body {
   min-height: 100%;
@@ -42,6 +56,31 @@ html.aieban-modern-frame body {
   font-family: var(--aieban-font) !important;
   font-size: 14px !important;
   line-height: 1.65 !important;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.aieban-modern-frame body,
+html.aieban-modern-frame input,
+html.aieban-modern-frame select,
+html.aieban-modern-frame textarea,
+html.aieban-modern-frame button,
+html.aieban-modern-frame table,
+html.aieban-modern-frame td,
+html.aieban-modern-frame th {
+  font-family: var(--aieban-font) !important;
+  letter-spacing: 0;
+}
+
+html.aieban-modern-frame h1,
+html.aieban-modern-frame h2,
+html.aieban-modern-frame h3,
+.aieban-title,
+.aieban-sidebar-title,
+.aieban-login-brand h1 {
+  font-family: var(--aieban-display-font) !important;
 }
 
 .aieban-topbar {
@@ -109,7 +148,9 @@ html.aieban-theme-dark .aieban-mark {
 }
 
 .aieban-theme-toggle,
-.aieban-watermark-toggle {
+.aieban-font-toggle,
+.aieban-watermark-toggle,
+.aieban-update-toggle {
   width: 36px;
   height: 36px;
   border: 1px solid var(--aieban-line);
@@ -126,27 +167,138 @@ html.aieban-theme-dark .aieban-mark {
   transition: background-color 180ms var(--aieban-ease), border-color 180ms var(--aieban-ease), color 180ms var(--aieban-ease), transform 180ms var(--aieban-ease), box-shadow 180ms var(--aieban-ease);
 }
 
-.aieban-watermark-toggle {
+.aieban-watermark-toggle,
+.aieban-font-toggle {
   font-family: var(--aieban-font);
   font-size: 13px;
   font-weight: 850;
 }
 
+.aieban-font-toggle {
+  font-family: "Segoe UI Symbol", "Microsoft YaHei UI", sans-serif;
+  font-size: 16px;
+}
+
 .aieban-theme-toggle:hover,
-.aieban-watermark-toggle:hover {
+.aieban-font-toggle:hover,
+.aieban-watermark-toggle:hover,
+.aieban-update-toggle:hover {
   border-color: #bfdbfe;
   color: var(--aieban-primary);
   transform: translateY(-1px) rotate(10deg);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
 }
 
-.aieban-watermark-toggle:hover {
+.aieban-watermark-toggle:hover,
+.aieban-font-toggle:hover,
+.aieban-update-toggle:hover {
   transform: translateY(-1px);
 }
 
 .aieban-theme-toggle:active,
-.aieban-watermark-toggle:active {
+.aieban-font-toggle:active,
+.aieban-watermark-toggle:active,
+.aieban-update-toggle:active {
   transform: translateY(0) rotate(0);
+}
+
+.aieban-update-toggle {
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.aieban-update-toggle.is-checking {
+  color: var(--aieban-primary);
+  animation: aieban-update-spin 900ms linear infinite;
+}
+
+.aieban-update-toggle.has-update {
+  border-color: rgba(37, 99, 235, 0.32);
+  background: var(--aieban-primary);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.26);
+}
+
+.aieban-update-toggle.is-error {
+  border-color: rgba(239, 68, 68, 0.32);
+  color: #dc2626;
+}
+
+.aieban-update-notice {
+  position: fixed;
+  top: 14px;
+  right: 236px;
+  z-index: 40;
+  min-height: 42px;
+  max-width: min(420px, calc(100vw - 280px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 14px;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--aieban-text);
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+  backdrop-filter: blur(14px);
+  animation: aieban-update-pop 220ms var(--aieban-ease);
+}
+
+.aieban-update-notice span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.aieban-update-notice a {
+  flex: 0 0 auto;
+  color: var(--aieban-primary);
+  font-size: 13px;
+  font-weight: 850;
+  text-decoration: none !important;
+}
+
+.aieban-update-notice button {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--aieban-accent-soft);
+  color: var(--aieban-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+html.aieban-theme-dark .aieban-update-notice {
+  border-color: rgba(96, 165, 250, 0.24);
+  background: rgba(15, 23, 42, 0.94);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+}
+
+@keyframes aieban-update-spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes aieban-update-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 html.aieban-hide-watermark .watermark {

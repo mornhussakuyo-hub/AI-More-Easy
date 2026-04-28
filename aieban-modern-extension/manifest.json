@@ -17,7 +17,27 @@
         "https://aieban.whu.edu.cn/eban/*",
         "http://aieban.whu.edu.cn/eban/*"
       ],
-      "js": ["src/content.js"],
+      "js": [
+        "src/core/constants.js",
+        "src/core/preferences.js",
+        "src/core/frames.js",
+        "src/core/detect.js",
+        "src/core/logout.js",
+        "src/core/update-checker.js",
+        "src/layout/topbar.js",
+        "src/layout/sidebar.js",
+        "src/pages/common.js",
+        "src/pages/leave.js",
+        "src/pages/datepicker.js",
+        "src/pages/ideology.js",
+        "src/pages/grade-guide.js",
+        "src/pages/attendance.js",
+        "src/pages/clothing.js",
+        "src/pages/party.js",
+        "src/pages/login.js",
+        "src/pages/annual-award.js",
+        "src/content.js"
+      ],
       "css": ["src/styles.css"],
       "all_frames": true,
       "run_at": "document_idle"
