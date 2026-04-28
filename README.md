@@ -1,4 +1,4 @@
-# AI更易办
+# AI更易办 
 
 让事更更容易办！
 
@@ -29,7 +29,7 @@ AI更易办是一个在本地浏览器中美化 AI易办本科生平台旧式页
 
 ## 本地安装
 
-1. 下载或解压本项目。下载链接: [链接](https://github.com/mornhussakuyo-hub/AI-More-Easy/releases/tag/V0.1.0)
+1. 下载或解压本项目。
 2. 打开浏览器扩展管理页：
    - Edge：`edge://extensions/`
    - Chrome：`chrome://extensions/`
@@ -67,7 +67,8 @@ http://aieban.whu.edu.cn/ebanbenke/*
 - `manifest.json`：扩展清单。
 - `src/content.js`：页面识别、DOM 重写和交互逻辑。
 - `src/styles.css`：现代化样式。
-- `assets/`：院徽资源。
+- `assets/`：院徽资源和扩展图标。
+- `assets/icons/`：扩展图标，包含 16、32、48、128 像素版本。
 - `docs/aieban-guide.md`：使用指南内容。
 
 修改后可以用下面的命令做一次基础语法检查：
