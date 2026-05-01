@@ -147,6 +147,13 @@ html.aieban-theme-dark .aieban-mark {
   gap: 12px;
 }
 
+.aieban-icon {
+  width: 1em;
+  height: 1em;
+  display: block;
+  flex: 0 0 auto;
+}
+
 .aieban-theme-toggle,
 .aieban-font-toggle,
 .aieban-watermark-toggle {
@@ -160,22 +167,17 @@ html.aieban-theme-dark .aieban-mark {
   color: var(--aieban-text);
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
   cursor: pointer;
-  font-family: "Segoe UI Symbol", "Microsoft YaHei UI", sans-serif;
   font-size: 17px;
   line-height: 1;
   transition: background-color 180ms var(--aieban-ease), border-color 180ms var(--aieban-ease), color 180ms var(--aieban-ease), transform 180ms var(--aieban-ease), box-shadow 180ms var(--aieban-ease);
 }
 
-.aieban-watermark-toggle,
-.aieban-font-toggle {
-  font-family: var(--aieban-font);
-  font-size: 13px;
-  font-weight: 850;
-}
-
-.aieban-font-toggle {
-  font-family: "Segoe UI Symbol", "Microsoft YaHei UI", sans-serif;
-  font-size: 16px;
+.aieban-theme-toggle .aieban-icon,
+.aieban-font-toggle .aieban-icon,
+.aieban-watermark-toggle .aieban-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.1;
 }
 
 .aieban-theme-toggle:hover,
@@ -238,7 +240,7 @@ html.aieban-theme-dark .aieban-sidebar {
   place-items: center;
   background: var(--aieban-panel);
   color: var(--aieban-muted);
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1;
   cursor: pointer;
   transition: background-color 160ms var(--aieban-ease), border-color 160ms var(--aieban-ease), color 160ms var(--aieban-ease), transform 160ms var(--aieban-ease);
@@ -347,9 +349,13 @@ html.aieban-theme-dark .aieban-nav-toggle:hover {
   place-items: center;
   color: #334155;
   background: var(--aieban-accent-soft);
-  font-size: 12px;
-  font-weight: 750;
   transition: background-color 180ms var(--aieban-ease), color 180ms var(--aieban-ease), transform 180ms var(--aieban-ease);
+}
+
+.aieban-nav-icon .aieban-icon {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.2;
 }
 
 .aieban-nav-toggle:hover .aieban-nav-icon {
@@ -480,11 +486,15 @@ html.aieban-theme-dark .aieban-nav-link {
   place-items: center;
   background: transparent;
   color: #cbd5e1;
-  font-family: "Segoe UI Symbol", "Microsoft YaHei UI", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1;
   cursor: pointer;
   transition: background-color 160ms var(--aieban-ease), color 160ms var(--aieban-ease), transform 160ms var(--aieban-ease);
+}
+
+.aieban-favorite-toggle .aieban-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .aieban-favorite-toggle:hover {
@@ -496,6 +506,11 @@ html.aieban-theme-dark .aieban-nav-link {
 .aieban-favorite-toggle.is-active {
   color: #f59e0b;
   background: #fffbeb;
+}
+
+.aieban-favorite-toggle.is-active .aieban-icon,
+.aieban-nav-favorites .aieban-nav-icon .aieban-icon {
+  fill: currentColor;
 }
 
 html.aieban-theme-dark .aieban-favorite-toggle {

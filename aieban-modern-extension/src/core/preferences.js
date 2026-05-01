@@ -6,7 +6,7 @@
   function applyTheme(theme = getTheme()) {
     document.documentElement.classList.toggle("aieban-theme-dark", theme === "dark");
     document.querySelectorAll(".aieban-theme-toggle").forEach((button) => {
-      button.textContent = theme === "dark" ? "☾" : "☀";
+      AiebanIcons.setIcon(button, theme === "dark" ? "themeDark" : "themeLight");
       button.setAttribute("aria-label", theme === "dark" ? "切换到白天模式" : "切换到夜间模式");
       button.title = theme === "dark" ? "切换到白天模式" : "切换到夜间模式";
     });
@@ -21,7 +21,7 @@
       Array.from(window.top.frames).forEach((frame) => {
         frame.document.documentElement.classList.toggle("aieban-theme-dark", theme === "dark");
         frame.document.querySelectorAll(".aieban-theme-toggle").forEach((button) => {
-          button.textContent = theme === "dark" ? "☾" : "☀";
+          AiebanIcons.setIcon(button, theme === "dark" ? "themeDark" : "themeLight");
           button.setAttribute("aria-label", theme === "dark" ? "切换到白天模式" : "切换到夜间模式");
           button.title = theme === "dark" ? "切换到白天模式" : "切换到夜间模式";
         });
@@ -48,7 +48,7 @@
     document.documentElement.classList.toggle("aieban-font-sans", isSans);
     document.documentElement.classList.toggle("aieban-font-literary", !isSans);
     document.querySelectorAll(".aieban-font-toggle").forEach((button) => {
-      button.textContent = isSans ? "✒" : "✎";
+      AiebanIcons.setIcon(button, isSans ? "fontSans" : "fontLiterary");
       button.setAttribute("aria-label", isSans ? "切换到文艺字体" : "切换到黑体字体");
       button.title = isSans ? "切换到文艺字体" : "切换到黑体字体";
     });
@@ -62,7 +62,7 @@
         frame.document.documentElement.classList.toggle("aieban-font-sans", isSans);
         frame.document.documentElement.classList.toggle("aieban-font-literary", !isSans);
         frame.document.querySelectorAll(".aieban-font-toggle").forEach((button) => {
-          button.textContent = isSans ? "✒" : "✎";
+          AiebanIcons.setIcon(button, isSans ? "fontSans" : "fontLiterary");
           button.setAttribute("aria-label", isSans ? "切换到文艺字体" : "切换到黑体字体");
           button.title = isSans ? "切换到文艺字体" : "切换到黑体字体";
         });
@@ -84,7 +84,7 @@
   function applyWatermarkPreference(hidden = isWatermarkHidden()) {
     document.documentElement.classList.toggle("aieban-hide-watermark", hidden);
     document.querySelectorAll(".aieban-watermark-toggle").forEach((button) => {
-      button.textContent = hidden ? "显" : "隐";
+      AiebanIcons.setIcon(button, hidden ? "watermarkHidden" : "watermarkVisible");
       button.setAttribute("aria-label", hidden ? "显示背景水印" : "隐藏背景水印");
       button.title = hidden ? "显示背景水印" : "隐藏背景水印";
     });
@@ -96,7 +96,7 @@
       Array.from(window.top.frames).forEach((frame) => {
         frame.document.documentElement.classList.toggle("aieban-hide-watermark", hidden);
         frame.document.querySelectorAll(".aieban-watermark-toggle").forEach((button) => {
-          button.textContent = hidden ? "显" : "隐";
+          AiebanIcons.setIcon(button, hidden ? "watermarkHidden" : "watermarkVisible");
           button.setAttribute("aria-label", hidden ? "显示背景水印" : "隐藏背景水印");
           button.title = hidden ? "显示背景水印" : "隐藏背景水印";
         });

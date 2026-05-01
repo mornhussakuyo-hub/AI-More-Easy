@@ -85,7 +85,7 @@
   }
 
   function sectionIcon(index) {
-    return ["概", "学", "简", "事", "更"][index] || "项";
+    return ["sectionCommon", "sectionSchool", "sectionDocs", "sectionBriefcase", "sectionMore"][index] || "sectionFolder";
   }
   function menuItemKey(item) {
     return item?.href || `${item?.label || ""}::${item?.target || ""}`;
@@ -166,7 +166,7 @@
         button.className = "aieban-favorite-toggle";
         const active = isFavorite(item);
         button.classList.toggle("is-active", active);
-        button.textContent = active ? "★" : "☆";
+        AiebanIcons.setIcon(button, "favorite");
         button.setAttribute("aria-label", active ? "取消收藏" : "收藏页面");
         button.title = active ? "取消收藏" : "收藏页面";
         row.appendChild(button);
@@ -199,7 +199,7 @@
         const active = favorites.some((favorite) => menuItemKey(favorite) === key);
         buttons.forEach((button) => {
           button.classList.toggle("is-active", active);
-          button.textContent = active ? "★" : "☆";
+          AiebanIcons.setIcon(button, "favorite");
           button.setAttribute("aria-label", active ? "取消收藏" : "收藏页面");
           button.title = active ? "取消收藏" : "收藏页面";
         });
@@ -258,9 +258,10 @@
 
     const applySidebarCollapse = (shouldCollapse, animate = true) => {
       document.documentElement.classList.toggle("aieban-sidebar-collapsed", shouldCollapse);
-      document.querySelector(".aieban-sidebar-collapse-toggle")?.setAttribute("aria-label", shouldCollapse ? "展开导航栏" : "收起导航栏");
-      document.querySelector(".aieban-sidebar-collapse-toggle")?.setAttribute("title", shouldCollapse ? "展开导航栏" : "收起导航栏");
-      document.querySelector(".aieban-sidebar-collapse-toggle")?.replaceChildren(shouldCollapse ? "›" : "‹");
+      const button = document.querySelector(".aieban-sidebar-collapse-toggle");
+      button?.setAttribute("aria-label", shouldCollapse ? "展开导航栏" : "收起导航栏");
+      button?.setAttribute("title", shouldCollapse ? "展开导航栏" : "收起导航栏");
+      AiebanIcons.setIcon(button, shouldCollapse ? "chevronRight" : "chevronLeft");
       setParentSidebarWidth(shouldCollapse ? 64 : 232, animate);
     };
 
@@ -296,11 +297,12 @@
     favoriteToggle.setAttribute("aria-expanded", "true");
     favoriteToggle.setAttribute("title", "收藏页面");
     favoriteToggle.innerHTML = `
-      <span class="aieban-nav-icon">★</span>
+      <span class="aieban-nav-icon"></span>
       <span class="aieban-nav-name">收藏页面</span>
       <span class="aieban-nav-count">0</span>
       <span class="aieban-nav-chevron"></span>
     `;
+    favoriteToggle.querySelector(".aieban-nav-icon")?.appendChild(AiebanIcons.create("favorite"));
     favoriteCount = favoriteToggle.querySelector(".aieban-nav-count");
     favoriteGroup.appendChild(favoriteToggle);
 
@@ -335,11 +337,12 @@
       toggle.setAttribute("aria-expanded", String(!collapsed.has(sectionId)));
       toggle.setAttribute("title", section.title);
       toggle.innerHTML = `
-        <span class="aieban-nav-icon">${sectionIcon(index)}</span>
+        <span class="aieban-nav-icon"></span>
         <span class="aieban-nav-name">${section.title}</span>
         <span class="aieban-nav-count">${section.links.length}</span>
         <span class="aieban-nav-chevron"></span>
       `;
+      toggle.querySelector(".aieban-nav-icon")?.appendChild(AiebanIcons.create(sectionIcon(index)));
       group.appendChild(toggle);
 
       const list = document.createElement("div");
