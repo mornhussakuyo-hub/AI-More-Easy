@@ -8,16 +8,6 @@ const AiebanIcons = (() => {
     ],
     chevronLeft: [["path", { d: "m15 18-6-6 6-6" }]],
     chevronRight: [["path", { d: "m9 18 6-6-6-6" }]],
-    eye: [
-      ["path", { d: "M2.1 12s3.6-7 9.9-7 9.9 7 9.9 7-3.6 7-9.9 7-9.9-7-9.9-7Z" }],
-      ["circle", { cx: "12", cy: "12", r: "3" }]
-    ],
-    eyeOff: [
-      ["path", { d: "m2 2 20 20" }],
-      ["path", { d: "M10.6 10.6a2 2 0 0 0 2.8 2.8" }],
-      ["path", { d: "M9.9 5.2A9.8 9.8 0 0 1 12 5c6.3 0 9.9 7 9.9 7a18.1 18.1 0 0 1-2.2 3.1" }],
-      ["path", { d: "M6.1 6.1C3.5 7.9 2.1 12 2.1 12s3.6 7 9.9 7a9.8 9.8 0 0 0 4.2-.9" }]
-    ],
     fileText: [
       ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" }],
       ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4" }],
@@ -78,9 +68,7 @@ const AiebanIcons = (() => {
     sectionSchool: "graduationCap",
     sectionFolder: "folder",
     themeDark: "moon",
-    themeLight: "sun",
-    watermarkHidden: "eyeOff",
-    watermarkVisible: "eye"
+    themeLight: "sun"
   };
 
   const create = (name, options = {}) => {

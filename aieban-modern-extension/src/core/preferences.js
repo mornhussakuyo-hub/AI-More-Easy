@@ -76,37 +76,3 @@
     localStorage.setItem(FONT_THEME_KEY, fontTheme);
     applyFontThemeToAllFrames(fontTheme);
   }
-
-  function isWatermarkHidden() {
-    return localStorage.getItem(WATERMARK_KEY) === "true";
-  }
-
-  function applyWatermarkPreference(hidden = isWatermarkHidden()) {
-    document.documentElement.classList.toggle("aieban-hide-watermark", hidden);
-    document.querySelectorAll(".aieban-watermark-toggle").forEach((button) => {
-      AiebanIcons.setIcon(button, hidden ? "watermarkHidden" : "watermarkVisible");
-      button.setAttribute("aria-label", hidden ? "显示背景水印" : "隐藏背景水印");
-      button.title = hidden ? "显示背景水印" : "隐藏背景水印";
-    });
-  }
-
-  function applyWatermarkPreferenceToAllFrames(hidden) {
-    applyWatermarkPreference(hidden);
-    try {
-      Array.from(window.top.frames).forEach((frame) => {
-        frame.document.documentElement.classList.toggle("aieban-hide-watermark", hidden);
-        frame.document.querySelectorAll(".aieban-watermark-toggle").forEach((button) => {
-          AiebanIcons.setIcon(button, hidden ? "watermarkHidden" : "watermarkVisible");
-          button.setAttribute("aria-label", hidden ? "显示背景水印" : "隐藏背景水印");
-          button.title = hidden ? "显示背景水印" : "隐藏背景水印";
-        });
-      });
-    } catch {
-      // Some frames may still be loading.
-    }
-  }
-
-  function setWatermarkHidden(hidden) {
-    localStorage.setItem(WATERMARK_KEY, String(hidden));
-    applyWatermarkPreferenceToAllFrames(hidden);
-  }

@@ -5,11 +5,9 @@
 
   applyTheme();
   applyFontTheme();
-  applyWatermarkPreference();
   window.addEventListener("storage", (event) => {
     if (event.key === THEME_KEY) applyTheme(event.newValue === "dark" ? "dark" : "light");
     if (event.key === FONT_THEME_KEY) applyFontTheme(event.newValue === "sans" ? "sans" : "literary");
-    if (event.key === WATERMARK_KEY) applyWatermarkPreference(event.newValue === "true");
   });
 
   function route() {

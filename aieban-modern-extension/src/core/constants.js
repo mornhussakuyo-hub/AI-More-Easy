@@ -4,7 +4,6 @@
   const FONT_THEME_KEY = "aieban-modern-font-theme";
   const SIDEBAR_KEY = "aieban-modern-sidebar-collapsed";
   const FAVORITES_KEY = "aieban-modern-favorites";
-  const WATERMARK_KEY = "aieban-modern-hide-watermark";
   const EMBLEM_LIGHT = chrome.runtime.getURL("assets/sai-emblem.png");
   const EMBLEM_DARK = chrome.runtime.getURL("assets/sai-emblem-white.png");
 

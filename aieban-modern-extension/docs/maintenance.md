@@ -37,7 +37,7 @@ aieban-modern-extension/
 
     core/
       constants.js           常量、固定文案、资源 URL
-      preferences.js         白天/夜间模式、水印显隐
+      preferences.js         白天/夜间模式、字体偏好
       frames.js              frameset、顶部 frame、左侧菜单 frame 判断
       detect.js              各页面识别函数
       logout.js              安全退出弹窗和跳转
@@ -96,7 +96,7 @@ window.__aiebanModernLoaded = true;
 
 ```js
 applyTheme();
-applyWatermarkPreference();
+applyFontTheme();
 ```
 
 3. 判断当前 frame 类型并调度：

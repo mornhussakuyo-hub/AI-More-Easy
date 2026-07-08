@@ -155,8 +155,7 @@ html.aieban-theme-dark .aieban-mark {
 }
 
 .aieban-theme-toggle,
-.aieban-font-toggle,
-.aieban-watermark-toggle {
+.aieban-font-toggle {
   width: 36px;
   height: 36px;
   border: 1px solid var(--aieban-line);
@@ -173,37 +172,27 @@ html.aieban-theme-dark .aieban-mark {
 }
 
 .aieban-theme-toggle .aieban-icon,
-.aieban-font-toggle .aieban-icon,
-.aieban-watermark-toggle .aieban-icon {
+.aieban-font-toggle .aieban-icon {
   width: 18px;
   height: 18px;
   stroke-width: 2.1;
 }
 
 .aieban-theme-toggle:hover,
-.aieban-font-toggle:hover,
-.aieban-watermark-toggle:hover {
+.aieban-font-toggle:hover {
   border-color: #bfdbfe;
   color: var(--aieban-primary);
   transform: translateY(-1px) rotate(10deg);
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
 }
 
-.aieban-watermark-toggle:hover,
 .aieban-font-toggle:hover {
   transform: translateY(-1px);
 }
 
 .aieban-theme-toggle:active,
-.aieban-font-toggle:active,
-.aieban-watermark-toggle:active {
+.aieban-font-toggle:active {
   transform: translateY(0) rotate(0);
-}
-
-html.aieban-hide-watermark .watermark {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
 }
 
 .aieban-sidebar {
