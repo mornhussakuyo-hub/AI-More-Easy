@@ -225,3 +225,26 @@
     const recordHeaders = ["ID", "年级", "班级", "学号", "姓名", "面签状态", "操作"];
     return recordHeaders.filter((header) => firstRowText.includes(header)).length >= 4;
   }
+
+  function wrapDataTable(table, className = "") {
+    if (!table || table.closest(".aieban-table-scroll, .aieban-data-scroll, .aieban-ztc-table-scroll")) return null;
+    if (table.closest(".xdsoft_datetimepicker, .aieban-login-card")) return null;
+    if (table.parentElement?.closest("table")) return null;
+
+    const wrapper = document.createElement("div");
+    wrapper.className = `aieban-data-scroll ${className}`.trim();
+    table.before(wrapper);
+    wrapper.appendChild(table);
+    return wrapper;
+  }
+
+  function shouldWrapDataTable(table) {
+    if (!table || table.classList.contains("aieban-layout-table")) return false;
+    if (table.closest(".aieban-table-scroll, .aieban-data-scroll, .aieban-ztc-table-scroll")) return false;
+    if (table.closest(".xdsoft_datetimepicker, .aieban-login-card")) return false;
+    if (table.parentElement?.closest("table")) return false;
+
+    const declaredWidth = Number.parseFloat(table.getAttribute("width")) || 0;
+    const firstRowCells = table.rows[0]?.cells?.length || 0;
+    return declaredWidth >= 700 || firstRowCells >= 6 || table.querySelectorAll("td, th").length >= 24;
+  }

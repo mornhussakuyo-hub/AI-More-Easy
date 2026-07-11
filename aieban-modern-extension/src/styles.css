@@ -12,6 +12,9 @@
   --aieban-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
   --aieban-shadow-hover: 0 22px 52px rgba(15, 23, 42, 0.12);
   --aieban-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --aieban-canvas-width: 1180px;
+  --aieban-reading-width: 980px;
+  --aieban-form-width: 760px;
   --aieban-literary-font: "LXGW WenKai Screen", "LXGW WenKai", "霞鹜文楷", "Kaiti SC", "STKaiti", "KaiTi", "楷体", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
   --aieban-literary-display-font: "LXGW WenKai Screen", "LXGW WenKai", "霞鹜文楷", "FZKai-Z03", "Kaiti SC", "STKaiti", "KaiTi", "楷体", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
   --aieban-sans-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", "HarmonyOS Sans SC", "MiSans", "OPPO Sans", Arial, sans-serif;
@@ -603,6 +606,13 @@ html.aieban-theme-dark .aieban-nav-link-danger:focus {
   padding: 22px 24px 48px !important;
 }
 
+.aieban-content > .aieban-welcome {
+  width: min(var(--aieban-canvas-width), 100%);
+  box-sizing: border-box;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .aieban-content a {
   color: var(--aieban-primary) !important;
   text-decoration: none !important;
@@ -709,6 +719,22 @@ html.aieban-theme-dark .aieban-nav-link-danger:focus {
 .aieban-guide-original font {
   font-family: var(--aieban-font) !important;
   color: inherit;
+}
+
+.aieban-guide-original p,
+.aieban-guide-original li,
+.aieban-guide-original td {
+  text-align: left !important;
+  text-align-last: auto !important;
+  letter-spacing: 0 !important;
+  word-spacing: 0 !important;
+}
+
+.aieban-guide-original p:first-of-type,
+.aieban-guide-original .MsoTitle,
+.aieban-guide-original [style*="text-align:center"],
+.aieban-guide-original [style*="text-align: center"] {
+  text-align: center !important;
 }
 
 .aieban-guide-original table {
@@ -991,6 +1017,8 @@ html.aieban-theme-dark .aieban-standard-note {
 
 .aieban-table-scroll > table {
   min-width: max-content;
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
 
 .aieban-standard-table caption,
@@ -3442,6 +3470,180 @@ html.aieban-theme-dark .aieban-modern-datepicker {
 
 html.aieban-theme-dark .xdsoft_datetimepicker .xdsoft_scrollbar > .xdsoft_scroller {
   background: #475569 !important;
+}
+
+/* Final geometry overrides live after page-specific rules. */
+.aieban-dashboard-hero,
+.aieban-dashboard-contacts,
+.aieban-dashboard-reminder,
+.aieban-standard-hero,
+.aieban-standard-note,
+.aieban-standard-empty,
+.aieban-standard-page > .aieban-table-scroll,
+.aieban-attendance-page > .aieban-attendance-toolbar,
+.aieban-attendance-page > .aieban-attendance-table,
+.aieban-attendance-page > table,
+.aieban-attendance-public-page > .aieban-attendance-public-table,
+.aieban-attendance-public-page > table,
+.aieban-zhitongche-page > .aieban-ztc-record-wrap {
+  width: min(var(--aieban-canvas-width), 100%);
+  box-sizing: border-box;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-guide,
+.aieban-attendance-public-hero,
+.aieban-party-hero,
+.aieban-party-policy-links,
+.aieban-party-resource-links,
+.aieban-party-notice,
+.aieban-party-info-card,
+.aieban-award-hero,
+.aieban-award-actions,
+.aieban-award-closed,
+.aieban-award-legend,
+.aieban-award-empty-list,
+.aieban-ztc-hero,
+.aieban-ztc-guide,
+.aieban-ztc-section-head,
+.aieban-ztc-table-scroll,
+.aieban-leave-guide,
+.aieban-original-notice,
+.aieban-policy-links,
+.aieban-grade-notice,
+.aieban-grade-hero {
+  width: min(var(--aieban-reading-width), 100%);
+  box-sizing: border-box;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-clothing-card,
+.aieban-leave-form,
+.aieban-ztc-form-wrap {
+  width: min(var(--aieban-form-width), 100%);
+  box-sizing: border-box;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-data-scroll {
+  width: min(var(--aieban-canvas-width), 100%);
+  box-sizing: border-box;
+  margin: 0 auto 20px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.aieban-data-scroll > table {
+  min-width: max-content;
+  margin: 0 auto !important;
+}
+
+.aieban-content .aieban-training-requirement-heading {
+  width: min(var(--aieban-canvas-width), 100%);
+  box-sizing: border-box;
+  margin: 24px auto 14px !important;
+}
+
+.aieban-content .aieban-attendance-toolbar,
+.aieban-content .aieban-attendance-public-hero,
+.aieban-content .aieban-clothing-card,
+.aieban-content .aieban-party-hero,
+.aieban-content .aieban-party-policy-links,
+.aieban-content .aieban-party-resource-links,
+.aieban-content .aieban-party-notice,
+.aieban-content .aieban-party-info-card,
+.aieban-content .aieban-award-hero,
+.aieban-content .aieban-award-actions,
+.aieban-content .aieban-award-closed,
+.aieban-content .aieban-award-legend,
+.aieban-content .aieban-award-empty-list,
+.aieban-content .aieban-ztc-hero,
+.aieban-content .aieban-ztc-guide,
+.aieban-content .aieban-ztc-section-head,
+.aieban-content .aieban-ztc-table-scroll,
+.aieban-content .aieban-leave-guide,
+.aieban-content .aieban-policy-links,
+.aieban-content .aieban-grade-notice,
+.aieban-content .aieban-grade-hero,
+.aieban-content .aieban-guide {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-content .aieban-leave-form,
+.aieban-content .aieban-ztc-form-wrap {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-content .aieban-table,
+.aieban-content .aieban-standard-table,
+.aieban-content .aieban-record-table {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-standard-page > table,
+.aieban-standard-page > form,
+.aieban-grade-page > form,
+.aieban-leave-page > table,
+.aieban-party-page > table,
+.aieban-ideology-page > table {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.aieban-standard-note,
+.aieban-guide-original,
+.aieban-ztc-original-guide,
+.aieban-original-notice,
+.aieban-grade-notice {
+  overflow-wrap: anywhere;
+  text-align: left !important;
+  line-height: 1.8;
+}
+
+.aieban-standard-note p,
+.aieban-guide-original p,
+.aieban-ztc-original-guide p,
+.aieban-original-notice p,
+.aieban-grade-notice p {
+  margin: 0 0 12px !important;
+  line-height: 1.8 !important;
+}
+
+.aieban-standard-note > :first-child,
+.aieban-guide-original > :first-child,
+.aieban-ztc-original-guide > :first-child,
+.aieban-original-notice > :first-child,
+.aieban-grade-notice > :first-child {
+  margin-top: 0 !important;
+}
+
+.aieban-standard-note > :last-child,
+.aieban-guide-original > :last-child,
+.aieban-ztc-original-guide > :last-child,
+.aieban-original-notice > :last-child,
+.aieban-grade-notice > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.aieban-standard-page .aieban-table-scroll + .aieban-table-scroll,
+.aieban-ztc-table-scroll + .aieban-ztc-section-head {
+  margin-top: 20px !important;
+}
+
+.aieban-standard-note br + br,
+.aieban-guide-original br + br,
+.aieban-ztc-original-guide br + br,
+.aieban-original-notice br + br,
+.aieban-grade-notice br + br {
+  line-height: 1.25;
 }
 
 .aieban-content font[color="red"],

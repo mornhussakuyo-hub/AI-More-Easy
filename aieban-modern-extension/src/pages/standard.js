@@ -289,7 +289,7 @@
     if (source && !document.querySelector(".aieban-training-requirement-heading")) {
       const original = text(source);
       const title = original.match(/本科阶段需修习的课程及学分/)?.[0] || "本科阶段需修习的课程及学分";
-      const note = original.match(/[（(]([^）)]+)[）)]/)?.[1] || "";
+      const note = original.match(/本科阶段需修习的课程及学分[（(]([^）)]+)[）)]/)?.[1] || "";
       const heading = document.createElement("section");
       heading.className = "aieban-training-requirement-heading";
 

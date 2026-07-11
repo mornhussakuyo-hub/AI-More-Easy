@@ -74,6 +74,10 @@
       }
     });
 
+    document.querySelectorAll("table").forEach((table) => {
+      if (shouldWrapDataTable(table)) wrapDataTable(table);
+    });
+
     document.querySelectorAll("input[type='button'], input[type='submit'], button").forEach((button) => {
       if (button.closest(".xdsoft_datetimepicker")) return;
       button.classList.add("aieban-button");
