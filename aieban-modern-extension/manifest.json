@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AI更易办",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "让事更更容易办！",
   "icons": {
     "16": "assets/icons/icon-16.png",
