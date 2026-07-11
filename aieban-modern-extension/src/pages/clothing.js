@@ -3,6 +3,10 @@
     if (!isClothingSizePage() || document.querySelector(".aieban-clothing-card")) return;
 
     document.body.classList.add("aieban-clothing-page");
+    const originalMessage = Array.from(document.body.childNodes)
+      .filter((node) => node.nodeType === Node.TEXT_NODE)
+      .map((node) => text(node))
+      .find((value) => value.includes("服装信息"));
 
     const candidate = Array.from(document.querySelectorAll("strong, b"))
       .map((node) => text(node))
@@ -20,8 +24,7 @@
       <div class="aieban-clothing-icon">衣</div>
       <div>
         <div class="aieban-clothing-kicker">服装尺码</div>
-        <h1>暂无需要填报的服装信息</h1>
-        <p>如需填报或修改服装尺码，请联系年级负责人。</p>
+        <h1>${originalMessage || "服装信息"}</h1>
       </div>
     `;
 

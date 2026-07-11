@@ -2,26 +2,10 @@
   function enhanceIdeologyScorePage() {
     if (!isIdeologyScorePage() || document.querySelector(".aieban-policy-links")) return;
 
-    const policies = [
-      {
-        id: "8661",
-        title: "《人工智能学院本科生离校请假备案办法》"
-      },
-      {
-        id: "8531",
-        title: "《人工智能学院本科生通报表扬、通报批评适用办法》"
-      },
-      {
-        id: "8541",
-        title: "《人工智能学院本科生思想政治素质综合评价实施细则》"
-      }
-    ];
-
-    const links = policies
-      .map((policy) => {
-        const link = document.querySelector(`a[href*="wbnewsid=${policy.id}"]`);
+    const links = ["8661", "8531", "8541"]
+      .map((id) => {
+        const link = document.querySelector(`a[href*="wbnewsid=${id}"]`);
         if (!link) return null;
-        link.textContent = policy.title;
         link.classList.add("aieban-policy-button");
         return link;
       })

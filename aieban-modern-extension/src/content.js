@@ -31,6 +31,8 @@
     document.documentElement.classList.add("aieban-modern-frame", "aieban-modern-main-frame");
     document.body.classList.add("aieban-content");
     const enhancedLoginPage = enhanceLoginPage();
+    if (enhanceDashboardPage()) return;
+    if (enhanceZhitongchePage()) return;
     if (renderGuidePage()) return;
 
     const enhancedGradePage = enhanceGradePage();
@@ -46,6 +48,7 @@
     enhanceIdeologyScorePage();
     enhanceAnnualAwardPage();
     enhanceDateTimePicker();
+    enhanceStandardPageLayout();
 
     document.querySelectorAll("table").forEach((table) => {
       if (table.closest(".xdsoft_datetimepicker")) return;

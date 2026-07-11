@@ -6,6 +6,9 @@
 
     const scheduleTable = findAttendanceScheduleTable();
     if (!scheduleTable) return;
+    const originalUpdateNotice = Array.from(document.body.childNodes)
+      .map((node) => text(node))
+      .find((value) => value.includes("到课数据") && value.includes("自动更新"));
 
     scheduleTable.classList.add("aieban-attendance-table");
     const scheduleAnchor = getOutermostTableAncestor(scheduleTable);
@@ -21,8 +24,10 @@
 
       const note = document.createElement("div");
       note.className = "aieban-attendance-note";
-      note.textContent = "每日凌晨自动更新";
-      toolbar.appendChild(note);
+      if (originalUpdateNotice) {
+        note.textContent = originalUpdateNotice;
+        toolbar.appendChild(note);
+      }
 
       const form = Array.from(document.querySelectorAll("form"))
         .find((candidate) => !scheduleTable.contains(candidate));
@@ -49,7 +54,7 @@
         });
       }
 
-      if (toolbar.children.length > 1) {
+      if (toolbar.children.length) {
         cleanupAttendanceHeader(scheduleAnchor, toolbar, welcome);
       }
     }

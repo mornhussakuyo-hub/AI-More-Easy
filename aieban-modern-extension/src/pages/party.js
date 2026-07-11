@@ -62,22 +62,10 @@
     }
     looseTextNodes.forEach((node) => node.remove());
 
-    const policies = [
-      {
-        id: "9011",
-        title: "《人工智能学院学生党总支关于发展本科生党员的具体条件》"
-      },
-      {
-        id: "8981",
-        title: "《人工智能学院学生党总支关于本科生党员民主评议合格的标准》"
-      }
-    ];
-
-    const links = policies
-      .map((policy) => {
-        const link = document.querySelector(`a[href*="wbnewsid=${policy.id}"]`);
+    const links = ["9011", "8981"]
+      .map((id) => {
+        const link = document.querySelector(`a[href*="wbnewsid=${id}"]`);
         if (!link) return null;
-        link.textContent = policy.title;
         link.classList.add("aieban-party-policy-button");
         return link;
       })
@@ -110,27 +98,11 @@
       if (oldWrapper && !oldWrapper.querySelector("table")) oldWrapper.remove();
     }
 
-    const resources = [
-      {
-        selector: 'a[href*="12371.cn"]',
-        title: "学习党的章程",
-        desc: "查看党章党规与党员学习材料"
-      },
-      {
-        selector: 'a[href*="xuexi.cn"]',
-        title: "学习强国",
-        desc: "打开党员学习平台"
-      }
-    ]
-      .map((resource) => {
-        const link = document.querySelector(resource.selector);
+    const resources = ['a[href*="12371.cn"]', 'a[href*="xuexi.cn"]']
+      .map((selector) => {
+        const link = document.querySelector(selector);
         if (!link) return null;
         link.classList.add("aieban-party-resource-button");
-        link.replaceChildren();
-        link.innerHTML = `
-          <span>${resource.title}</span>
-          <small>${resource.desc}</small>
-        `;
         return link;
       })
       .filter(Boolean);
@@ -152,7 +124,6 @@
     document.querySelectorAll('a[href^="tencent://message"]').forEach((link) => {
       link.classList.add("aieban-qq-button");
       link.setAttribute("title", "QQ联系");
-      link.textContent = "QQ联系";
     });
 
     Array.from(document.querySelectorAll('font[color="red"]')).forEach((node) => {

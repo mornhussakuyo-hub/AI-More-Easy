@@ -84,6 +84,16 @@ cd aieban-modern-extension
 node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('manifest.json','utf8')); const js=m.content_scripts[0].js.map(p=>fs.readFileSync(p,'utf8')).join('\n'); new Function(js); console.log('combined js OK')"
 ```
 
+### 下载 AI易办原始页面
+
+用于更新开发时抓取已登录页面快照：
+
+```bash
+node tools/download-aieban.js
+```
+
+脚本会启动一个专用 Chrome profile。首次运行时请在打开的 Chrome 中登录 AI易办，进入主页面后回到终端按 Enter。下载结果保存在 `下载的网页内容/`，该目录已被 Git 忽略，里面可能包含个人信息和水印，不要提交。
+
 ## 许可证
 
 本项目使用 MIT License，详见 `LICENSE`。

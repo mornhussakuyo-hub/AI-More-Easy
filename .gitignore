@@ -15,6 +15,7 @@ release/
 *.pem
 
 # Locally saved AI易办 pages may contain personal data/watermarks.
+/下载的网页内容/
 /AI易办：让事更容易办.html
 /AI易办：让事更容易办_files/
 /6db80482-8976-4d19-b08b-a2b99f203a70.png
@@ -22,6 +23,7 @@ release/
 /*_files/
 
 # Logs and temporary files
+.cache/
 *.log
 *.tmp
 *.bak

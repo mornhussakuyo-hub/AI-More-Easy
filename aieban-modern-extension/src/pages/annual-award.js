@@ -8,7 +8,18 @@
     const groupForm = document.forms.jitishenbao || document.querySelector('form[action*="pingyou_shenbao_jiti"]');
     const forms = [personalForm, groupForm].filter(Boolean);
     const oldActionTable = forms[0]?.closest("table");
-    const isClosed = forms.length > 0 && forms.every((form) => form.querySelector('input[type="submit"], button')?.disabled);
+    const submitControls = forms.map((form) => form.querySelector('input[type="submit"], button')).filter(Boolean);
+    const isClosed = submitControls.length > 0 && submitControls.every((control) => control.disabled);
+    const isOpen = submitControls.some((control) => !control.disabled);
+    const originalClosedMessage = Array.from(oldActionTable?.querySelectorAll("td, th") || [])
+      .map((node) => text(node))
+      .find((value) => value.includes("截至时间") || value.includes("截止时间"));
+    const originalEmptyMessages = Array.from(document.querySelectorAll('a[name="a"]'))
+      .map((node) => text(node))
+      .filter(Boolean);
+    const originalLegend = Array.from(document.querySelectorAll("strong")).find((node) => {
+      return text(node).includes("不同颜色表示不同状态") && node.querySelectorAll("font").length >= 4;
+    });
 
     const hero = document.createElement("section");
     hero.className = "aieban-award-hero";
@@ -34,7 +45,7 @@
     actionPanel.innerHTML = `
       <div class="aieban-award-action-head">
         <h2>申报入口</h2>
-        <span>${isClosed ? "当前不可填报" : "开放填报中"}</span>
+        ${isClosed || isOpen ? `<span>${isClosed ? "当前不可填报" : "开放填报中"}</span>` : ""}
       </div>
       <div class="aieban-award-action-grid"></div>
     `;
@@ -46,11 +57,6 @@
 
       const submit = form?.querySelector('input[type="submit"], button');
       if (submit) {
-        if (submit.tagName === "INPUT") {
-          submit.value = buttonText;
-        } else {
-          submit.textContent = buttonText;
-        }
         if (submit.disabled) card.classList.add("is-disabled");
       } else {
         card.classList.add("is-disabled");
@@ -77,54 +83,45 @@
       return card;
     };
 
-    grid.appendChild(createActionCard(personalForm, "先进个人", "填写个人年度评优申报材料。", "填写先进个人申报表"));
-    grid.appendChild(createActionCard(groupForm, "先进集体", "填写集体年度评优申报材料。", "填写先进集体申报表"));
+    if (personalForm) grid.appendChild(createActionCard(personalForm, "先进个人", "填写个人年度评优申报材料。"));
+    if (groupForm) grid.appendChild(createActionCard(groupForm, "先进集体", "填写集体年度评优申报材料。"));
     hero.after(actionPanel);
 
     let anchor = actionPanel;
     if (isClosed) {
       const closed = document.createElement("div");
       closed.className = "aieban-award-closed";
-      closed.textContent = "申报截止时间已过，当前不能再进行填报和修改。";
-      actionPanel.after(closed);
-      anchor = closed;
+      if (originalClosedMessage) {
+        closed.textContent = originalClosedMessage;
+        actionPanel.after(closed);
+        anchor = closed;
+      }
     }
 
     const legend = document.createElement("section");
     legend.className = "aieban-award-legend";
-    legend.innerHTML = `
-      <h2>状态说明</h2>
-      <div class="aieban-award-legend-grid">
-        <div><span class="is-black"></span>团支部、班级和推荐单位负责人均未检查确认</div>
-        <div><span class="is-red"></span>推荐单位负责人尚未检查确认</div>
-        <div><span class="is-blue"></span>所在团支部和班级负责人尚未检查确认</div>
-        <div><span class="is-green"></span>团支部、班级和推荐单位负责人均已检查确认</div>
-      </div>
-      <p>请确保截止前申报奖项状态变为绿色。</p>
-    `;
-    anchor.after(legend);
+    if (originalLegend) {
+      const title = document.createElement("h2");
+      title.textContent = "状态说明";
+      legend.append(title, originalLegend);
+      anchor.after(legend);
+    }
 
-    const empty = document.createElement("section");
-    empty.className = "aieban-award-empty-list";
-    empty.innerHTML = `
-      <div class="aieban-award-empty-card">
-        <h2>先进集体申报表</h2>
-        <p>暂无已填报的先进集体申报表。</p>
-      </div>
-      <div class="aieban-award-empty-card">
-        <h2>先进个人申报表</h2>
-        <p>暂无已填报的先进个人申报表。</p>
-      </div>
-    `;
-    legend.after(empty);
+    if (originalEmptyMessages.length) {
+      const empty = document.createElement("section");
+      empty.className = "aieban-award-empty-list";
+      originalEmptyMessages.forEach((message) => {
+        const card = document.createElement("div");
+        card.className = "aieban-award-empty-card";
+        const paragraph = document.createElement("p");
+        paragraph.textContent = message;
+        card.appendChild(paragraph);
+        empty.appendChild(card);
+      });
+      (legend.isConnected ? legend : anchor).after(empty);
+    }
 
     if (oldActionTable) oldActionTable.remove();
-
-    Array.from(document.querySelectorAll("strong")).forEach((node) => {
-      const value = text(node);
-      const fontCount = node.querySelectorAll("font").length;
-      if ((value.includes("说明") && value.includes("颜色")) || fontCount >= 4) node.remove();
-    });
 
     Array.from(document.querySelectorAll('a[name="a"]')).forEach((node) => {
       if (text(node).includes("暂无") || text(node).includes("申报表")) node.remove();

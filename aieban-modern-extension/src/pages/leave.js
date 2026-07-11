@@ -16,36 +16,7 @@
         return beforeForm && !table.querySelector("input, select, textarea, button") && text(table).length > 30;
       });
 
-    if (!document.querySelector(".aieban-leave-guide")) {
-      const guide = document.createElement("section");
-      guide.className = "aieban-leave-guide";
-      guide.innerHTML = `
-        <h2>缺课请假备案说明</h2>
-        <p>${LEAVE_NOTICE.intro}</p>
-        <h3>${LEAVE_NOTICE.title}</h3>
-      `;
-
-      const list = document.createElement("ol");
-      LEAVE_NOTICE.steps.forEach((step) => {
-        const item = document.createElement("li");
-        item.textContent = step;
-        list.appendChild(item);
-      });
-      guide.appendChild(list);
-
-      const welcome = document.querySelector(".aieban-welcome");
-      if (welcome) {
-        welcome.after(guide);
-      } else if (oldGuide) {
-        oldGuide.before(guide);
-      } else if (form) {
-        form.before(guide);
-      } else {
-        document.body.prepend(guide);
-      }
-    }
-
-    if (oldGuide) oldGuide.remove();
+    if (oldGuide) oldGuide.classList.add("aieban-leave-guide", "aieban-original-notice");
 
     if (form) {
       form.classList.add("aieban-leave-form");
@@ -75,36 +46,7 @@
       return beforeForm && !table.querySelector("input, select, textarea, button") && text(table).length > 40;
     });
 
-    const guide = document.createElement("section");
-    guide.className = "aieban-leave-guide aieban-school-leave-guide";
-    guide.innerHTML = `
-      <div class="aieban-school-leave-kicker">离校备案</div>
-      <h2>离校请假备案说明</h2>
-      <p>${SCHOOL_LEAVE_NOTICE.intro}</p>
-      <div class="aieban-leave-alert">辅导员联系方式：19023790307；微信：15903905578。</div>
-      <h3>${SCHOOL_LEAVE_NOTICE.title}</h3>
-    `;
-
-    const list = document.createElement("ol");
-    SCHOOL_LEAVE_NOTICE.steps.forEach((step) => {
-      const item = document.createElement("li");
-      item.textContent = step;
-      list.appendChild(item);
-    });
-    guide.appendChild(list);
-
-    const welcome = document.querySelector(".aieban-welcome");
-    if (welcome) {
-      welcome.after(guide);
-    } else if (oldGuide) {
-      oldGuide.before(guide);
-    } else if (form) {
-      form.before(guide);
-    } else {
-      document.body.prepend(guide);
-    }
-
-    if (oldGuide) oldGuide.remove();
+    if (oldGuide) oldGuide.classList.add("aieban-leave-guide", "aieban-school-leave-guide", "aieban-original-notice");
 
     if (form) {
       form.classList.add("aieban-leave-form", "aieban-school-leave-form");

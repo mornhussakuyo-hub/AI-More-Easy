@@ -127,7 +127,7 @@
 
     const notice = document.createElement("div");
     notice.className = "aieban-maintenance-notice";
-    notice.textContent = "系统维护：每日 1:00-3:00 暂停访问，请错峰使用。";
+    notice.textContent = text(targetText);
 
     const targetElement = targetText.parentElement;
     if (targetElement && ["FONT", "STRONG", "B", "SPAN"].includes(targetElement.tagName)) {

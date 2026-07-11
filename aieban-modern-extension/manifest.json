@@ -34,6 +34,9 @@
         "src/pages/attendance.js",
         "src/pages/clothing.js",
         "src/pages/party.js",
+        "src/pages/zhitongche.js",
+        "src/pages/dashboard.js",
+        "src/pages/standard.js",
         "src/pages/login.js",
         "src/pages/annual-award.js",
         "src/content.js"

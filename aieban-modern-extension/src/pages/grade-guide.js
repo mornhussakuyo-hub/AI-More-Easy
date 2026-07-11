@@ -1,29 +1,17 @@
 // AI更易办 - 拆分自旧版 content.js。
-  function createGradeNotice() {
+  function createGradeNotice(form) {
     const notice = document.createElement("section");
     notice.className = "aieban-grade-notice";
+    notice.setAttribute("aria-label", "成绩说明原文");
 
-    const special = document.createElement("section");
-    special.className = "aieban-grade-section";
-    special.innerHTML = "<h2>特别说明</h2>";
-    GRADE_NOTICE.special.forEach((line) => {
-      const paragraph = document.createElement("p");
-      paragraph.textContent = line;
-      special.appendChild(paragraph);
+    let node = Array.from(document.querySelectorAll("strong, b")).find((candidate) => {
+      return text(candidate).includes("特别说明");
     });
-
-    const rules = document.createElement("section");
-    rules.className = "aieban-grade-section";
-    rules.innerHTML = "<h2>AI易办成绩计算说明2026new</h2>";
-    const list = document.createElement("ol");
-    GRADE_NOTICE.rules.forEach((line) => {
-      const item = document.createElement("li");
-      item.textContent = line;
-      list.appendChild(item);
-    });
-    rules.appendChild(list);
-
-    notice.append(special, rules);
+    while (node && node !== form) {
+      const next = node.nextSibling;
+      notice.appendChild(node);
+      node = next;
+    }
     return notice;
   }
 
@@ -90,20 +78,8 @@
 
     const form = document.querySelector('form[action*="chengji_chaxun_toexcel"]') || document.querySelector("form");
     const cacheTime = extractGradeCacheTime();
-    const notice = createGradeNotice();
+    const notice = createGradeNotice(form);
     const hero = createGradeHero(cacheTime);
-
-    let node = document.body.firstChild;
-    while (node && node !== form) {
-      const next = node.nextSibling;
-      const keep =
-        node.nodeType === Node.COMMENT_NODE ||
-        (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("watermark")) ||
-        (node.nodeType === Node.ELEMENT_NODE && ["SCRIPT", "STYLE"].includes(node.tagName));
-
-      if (!keep) node.remove();
-      node = next;
-    }
 
     const anchor = form || document.body.firstChild;
     if (anchor) {
@@ -120,51 +96,19 @@
     if (!isGuidePage()) return false;
 
     document.body.classList.add("aieban-guide-page");
+    if (!document.querySelector(".aieban-guide")) {
+      const article = document.createElement("article");
+      article.className = "aieban-guide aieban-guide-original";
+      article.setAttribute("aria-label", "AI易办使用指南原文");
 
-    const article = document.createElement("article");
-    article.className = "aieban-guide";
-
-    let list = null;
-    GUIDE_MARKDOWN.split("\n").forEach((line) => {
-      const trimmed = line.trim();
-      if (!trimmed) {
-        list = null;
-        return;
-      }
-
-      if (trimmed.startsWith("# ")) {
-        list = null;
-        const heading = document.createElement("h1");
-        heading.textContent = trimmed.slice(2);
-        article.appendChild(heading);
-        return;
-      }
-
-      if (trimmed.startsWith("## ")) {
-        list = null;
-        const heading = document.createElement("h2");
-        heading.textContent = trimmed.slice(3);
-        article.appendChild(heading);
-        return;
-      }
-
-      if (trimmed.startsWith("- ")) {
-        if (!list) {
-          list = document.createElement("ul");
-          article.appendChild(list);
-        }
-        const item = document.createElement("li");
-        item.textContent = trimmed.slice(2);
-        list.appendChild(item);
-        return;
-      }
-
-      list = null;
-      const paragraph = document.createElement("p");
-      paragraph.textContent = trimmed;
-      article.appendChild(paragraph);
-    });
-
-    document.body.replaceChildren(article);
+      Array.from(document.body.childNodes).forEach((node) => {
+        const keepOutside =
+          node.nodeType === Node.COMMENT_NODE ||
+          (node.nodeType === Node.ELEMENT_NODE && node.classList.contains("watermark")) ||
+          (node.nodeType === Node.ELEMENT_NODE && ["SCRIPT", "STYLE", "LINK"].includes(node.tagName));
+        if (!keepOutside) article.appendChild(node);
+      });
+      document.body.appendChild(article);
+    }
     return true;
   }

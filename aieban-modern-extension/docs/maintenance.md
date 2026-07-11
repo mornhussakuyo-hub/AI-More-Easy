@@ -55,6 +55,9 @@ aieban-modern-extension/
       attendance.js          核对考勤、考勤公示
       clothing.js            选服装尺码
       party.js               入党进度表
+      zhitongche.js          珞珈智通车
+      dashboard.js           进站首页联系人面板
+      standard.js            通用事务页框架、空状态、宽表和普通表单
       login.js               登录页
       annual-award.js        报年度评优
 ```
@@ -66,14 +69,15 @@ aieban-modern-extension/
 当前顺序是：
 
 1. `core/constants.js`
-2. `core/preferences.js`
-3. `core/frames.js`
-4. `core/detect.js`
-5. `core/logout.js`
-6. `layout/topbar.js`
-7. `layout/sidebar.js`
-8. `pages/*.js`
-9. `content.js`
+2. `core/icons.js`
+3. `core/preferences.js`
+4. `core/frames.js`
+5. `core/detect.js`
+6. `core/logout.js`
+7. `layout/topbar.js`
+8. `layout/sidebar.js`
+9. `pages/*.js`
+10. `content.js`
 
 最后加载 `content.js`，因为它会调用前面所有文件里定义的函数。
 
@@ -114,6 +118,23 @@ if (window.top === window.self && document.querySelector("frameset")) {
 ```
 
 绝大多数页面增强都发生在 `enhanceMainFrame()` 里。
+
+## 下载快照与通用重写
+
+更新页面前先抓一份当前 AI易办快照：
+
+```bash
+node tools/download-aieban.js
+```
+
+脚本会打开专用 Chrome profile。首次运行要在弹出的 Chrome 中登录 AI易办，进入主页面后回到终端按 Enter。结果保存在根目录 `下载的网页内容/`，其中可能含有个人信息和水印，已经被 Git 忽略，不要提交。
+
+当前有两类页面重写方式：
+
+- 专页增强：成绩、考勤、请假、入党、智通车、登录页等使用独立 `pages/*.js` 文件，适合需要重排表单或重写文案的页面。
+- 标准页增强：`pages/standard.js` 覆盖培养方案、讲座报告、任职经历、职业测评、公告签阅、面签销假、假期去向、评优申报表等页面，统一提供页头、空状态、宽表横向滚动和普通表单样式。
+
+新增页面时，先判断是否只需要标准页框架。如果页面只是表格、说明、普通表单或空状态，优先在 `core/detect.js` 和 `pages/standard.js` 增加 meta；只有页面结构需要大幅重排时，再新建专页增强文件。
 
 ## 新增一个页面美化
 
