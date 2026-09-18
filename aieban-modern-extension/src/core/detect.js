@@ -64,6 +64,22 @@
     return PAGE.includes("liuxiao_dengji") || text(document.body).includes("假期去哪儿");
   }
 
+  function isAssessmentF1Page() {
+    return PAGE.includes("zongheceping_a.php") || !!document.forms.zonghecepingshenbao;
+  }
+
+  function isAssessmentF3Page() {
+    return PAGE.includes("zongheceping_c.php") || !!document.querySelector('form[action*="zongheceping_shenbao_c"]');
+  }
+
+  function isAssessmentSummaryPage() {
+    return PAGE.includes("zongheceping_shenqing.php") || !!document.forms.tijiaoF;
+  }
+
+  function isAssessmentPage() {
+    return isAssessmentF1Page() || isAssessmentF3Page() || isAssessmentSummaryPage();
+  }
+
   function isZhitongchePage() {
     const bodyText = text(document.body);
     return (

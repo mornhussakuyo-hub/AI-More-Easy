@@ -6,7 +6,7 @@
     const meta = getStandardPageMeta();
     if (!meta) return;
 
-    document.body.classList.add("aieban-standard-page", meta.className);
+    document.body.classList.add("aieban-standard-page", meta.className, ...(meta.bodyClasses || []));
     ensureStandardWelcome();
     normalizeStandardTopSpacing();
 
@@ -131,6 +131,36 @@
         title: PAGE.includes("jiti") ? "先进集体申报表" : "先进个人申报表",
         description: "查看和填写页面提供的年度评优申报信息。",
         tab: "申报"
+      };
+    }
+    if (isAssessmentPage()) {
+      if (isAssessmentF1Page()) {
+        return {
+          className: "aieban-assessment-f1-page",
+          bodyClasses: ["aieban-assessment-page"],
+          kicker: "综合测评",
+          title: "基本素质测评 F1",
+          description: "逐项核对自评次数与事由，保存后再更新本页合计。",
+          tab: "F1"
+        };
+      }
+      if (isAssessmentF3Page()) {
+        return {
+          className: "aieban-assessment-f3-page",
+          bodyClasses: ["aieban-assessment-page"],
+          kicker: "综合测评",
+          title: "实践与创新能力测评 F3",
+          description: "按项目逐条填报、保存，并在完成后更新 F3 自评分合计。",
+          tab: "F3"
+        };
+      }
+      return {
+        className: "aieban-assessment-summary-page",
+        bodyClasses: ["aieban-assessment-page"],
+        kicker: "综合测评",
+        title: "综合测评总表",
+        description: "确认 F1、F2 与 F3 数据后，提交更新综合测评总分。",
+        tab: "F"
       };
     }
     return null;
@@ -353,6 +383,14 @@
     document.querySelectorAll("form").forEach((form) => {
       if (form.closest(".xdsoft_datetimepicker")) return;
       form.classList.add("aieban-standard-form");
+      if (document.body.classList.contains("aieban-assessment-page")) {
+        form.classList.add("aieban-assessment-form");
+        form.closest("table")?.classList.add("aieban-assessment-form-table");
+      }
+    });
+
+    document.querySelectorAll('.aieban-assessment-page select[name="xuenian"]').forEach((select) => {
+      select.classList.add("aieban-assessment-year");
     });
 
     document.querySelectorAll(".aieban-standard-page input[type='submit'], .aieban-standard-page button").forEach((button) => {

@@ -37,6 +37,7 @@ aieban-modern-extension/
 
     core/
       constants.js           常量、固定文案、资源 URL
+      themes.js              主题注册表和 CSS 令牌应用
       preferences.js         白天/夜间模式、字体偏好
       frames.js              frameset、顶部 frame、左侧菜单 frame 判断
       detect.js              各页面识别函数
@@ -60,6 +61,9 @@ aieban-modern-extension/
       standard.js            通用事务页框架、空状态、宽表和普通表单
       login.js               登录页
       annual-award.js        报年度评优
+
+    themes/
+      luojia.js              默认“珞珈工作台”主题
 ```
 
 ## 加载顺序
@@ -70,14 +74,16 @@ aieban-modern-extension/
 
 1. `core/constants.js`
 2. `core/icons.js`
-3. `core/preferences.js`
-4. `core/frames.js`
-5. `core/detect.js`
-6. `core/logout.js`
-7. `layout/topbar.js`
-8. `layout/sidebar.js`
-9. `pages/*.js`
-10. `content.js`
+3. `core/themes.js`
+4. `themes/luojia.js`
+5. `core/preferences.js`
+6. `core/frames.js`
+7. `core/detect.js`
+8. `core/logout.js`
+9. `layout/topbar.js`
+10. `layout/sidebar.js`
+11. `pages/*.js`
+12. `content.js`
 
 最后加载 `content.js`，因为它会调用前面所有文件里定义的函数。
 
@@ -246,6 +252,7 @@ button { ... }
 - 日历控件：`pages/datepicker.js`
 - 成绩页：`pages/grade-guide.js`
 - 使用指南文案：`docs/aieban-guide.md` 和 `core/constants.js`
+- 主题令牌和主题注册：`core/themes.js`、`themes/luojia.js`、`docs/themes.md`
 - 所有视觉样式：`src/styles.css`
 
 ## 验证命令
@@ -264,6 +271,12 @@ node -e "const fs=require('fs'); JSON.parse(fs.readFileSync('aieban-modern-exten
 ```
 
 如果 `combined js OK`，说明所有 JS 按 manifest 顺序拼起来至少语法正确。
+
+如果已经有页面快照，运行全量无依赖检查：
+
+```bash
+node tools/validate-aieban-snapshots.js
+```
 
 ## 浏览器里怎么调试
 
@@ -292,7 +305,7 @@ node -e "const fs=require('fs'); JSON.parse(fs.readFileSync('aieban-modern-exten
 
 ## 为什么 CSS 暂时没拆
 
-本次重构要求“不修改任何样式”。为了最大限度保持视觉不变，`src/styles.css` 暂时保留单文件，只拆 JS。
+本次视觉更新仍把样式集中在 `src/styles.css`，这样可以保持选择器优先级和加载顺序清晰，避免为了拆分文件引入额外回归。
 
 以后如果要拆 CSS，建议只做纯移动：
 
@@ -316,4 +329,5 @@ src/styles/pages/*.css
    - 成绩页
    - 考勤页
    - 请假页
+   - 综合测评 F1、F3 和总表
 4. 打包时不要包含本地保存的 HTML。

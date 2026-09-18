@@ -6,9 +6,12 @@
     const root = frameSets[0];
     const content = frameSets[1];
     const sidebarCollapsed = localStorage.getItem(SIDEBAR_KEY) === "true";
+    const topbarHeight = themePixels("--aieban-topbar-height", 76);
+    const sidebarWidth = themePixels("--aieban-sidebar-width", 248);
+    const collapsedWidth = themePixels("--aieban-sidebar-collapsed-width", 68);
 
-    if (root) root.setAttribute("rows", "72,*");
-    if (content) content.setAttribute("cols", sidebarCollapsed ? "64,*" : "232,*");
+    if (root) root.setAttribute("rows", `${topbarHeight},*`);
+    if (content) content.setAttribute("cols", `${sidebarCollapsed ? collapsedWidth : sidebarWidth},*`);
   }
 
   function isTopFrame() {

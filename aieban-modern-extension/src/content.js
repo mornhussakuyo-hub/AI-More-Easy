@@ -7,6 +7,7 @@
   applyFontTheme();
   window.addEventListener("storage", (event) => {
     if (event.key === THEME_KEY) applyTheme(event.newValue === "dark" ? "dark" : "light");
+    if (event.key === INTERFACE_THEME_KEY) applyTheme();
     if (event.key === FONT_THEME_KEY) applyFontTheme(event.newValue === "sans" ? "sans" : "literary");
   });
 

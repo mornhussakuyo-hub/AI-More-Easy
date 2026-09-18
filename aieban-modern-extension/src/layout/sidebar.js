@@ -85,7 +85,7 @@
   }
 
   function sectionIcon(index) {
-    return ["sectionCommon", "sectionSchool", "sectionDocs", "sectionBriefcase", "sectionMore"][index] || "sectionFolder";
+    return ["sectionCommon", "sectionSchool", "sectionDocs", "sectionBriefcase", "sectionAssessment", "sectionMore"][index] || "sectionFolder";
   }
   function menuItemKey(item) {
     return item?.href || `${item?.label || ""}::${item?.target || ""}`;
@@ -136,6 +136,12 @@
     };
 
     let favorites = readFavorites();
+    let activeMenuKey = localStorage.getItem(ACTIVE_MENU_KEY) || "";
+    try {
+      activeMenuKey = window.parent.frames.main?.location.href || activeMenuKey;
+    } catch {
+      // The saved active item is enough while the main frame is loading.
+    }
     const favoriteButtons = new Map();
     const isFavorite = (item) => favorites.some((favorite) => menuItemKey(favorite) === menuItemKey(item));
     let favoriteGroup;
@@ -153,12 +159,25 @@
       link.textContent = item.label;
 
       const logout = isLogoutLink(link);
+      const key = menuItemKey(item);
+      row.classList.toggle("is-current", !logout && key === activeMenuKey);
       if (logout) {
         link.classList.add("aieban-nav-link-danger");
         link.addEventListener("click", confirmLogout);
       }
 
       row.appendChild(link);
+
+      if (!logout) {
+        link.addEventListener("click", () => {
+          activeMenuKey = key;
+          localStorage.setItem(ACTIVE_MENU_KEY, key);
+          document.querySelectorAll(".aieban-nav-row").forEach((candidate) => {
+            candidate.classList.toggle("is-current", candidate.dataset.menuKey === key);
+          });
+        });
+      }
+      row.dataset.menuKey = key;
 
       if (!logout) {
         const button = document.createElement("button");
@@ -171,7 +190,6 @@
         button.title = active ? "取消收藏" : "收藏页面";
         row.appendChild(button);
 
-        const key = menuItemKey(item);
         if (!options.favoriteItem) {
           if (!favoriteButtons.has(key)) favoriteButtons.set(key, []);
           favoriteButtons.get(key).push(button);
@@ -237,7 +255,7 @@
           return;
         }
 
-        const current = parseFloat(contentFrameSet.getAttribute("cols")) || 232;
+        const current = parseFloat(contentFrameSet.getAttribute("cols")) || themePixels("--aieban-sidebar-width", 248, window.parent.document);
         const target = width;
         const duration = 220;
         const start = performance.now();
@@ -262,7 +280,9 @@
       button?.setAttribute("aria-label", shouldCollapse ? "展开导航栏" : "收起导航栏");
       button?.setAttribute("title", shouldCollapse ? "展开导航栏" : "收起导航栏");
       AiebanIcons.setIcon(button, shouldCollapse ? "chevronRight" : "chevronLeft");
-      setParentSidebarWidth(shouldCollapse ? 64 : 232, animate);
+      const sidebarWidth = themePixels("--aieban-sidebar-width", 248, window.parent.document);
+      const collapsedWidth = themePixels("--aieban-sidebar-collapsed-width", 68, window.parent.document);
+      setParentSidebarWidth(shouldCollapse ? collapsedWidth : sidebarWidth, animate);
     };
 
     const nav = document.createElement("nav");
@@ -413,4 +433,3 @@
 
     if (watermark) document.body.appendChild(watermark);
   }
-

@@ -8,12 +8,13 @@
           <div class="aieban-mark">
             <img class="aieban-emblem" src="${getTheme() === "dark" ? EMBLEM_DARK : EMBLEM_LIGHT}" alt="人工智能学院院徽">
           </div>
-          <div>
-            <div class="aieban-title">AI易办</div>
+          <div class="aieban-brand-copy">
+            <div class="aieban-brand-kicker">WHU · SAI</div>
+            <div class="aieban-title">AI更易办</div>
           </div>
         </div>
         <div class="aieban-topbar-actions">
-          <div class="aieban-topbar-meta">本科生事务服务平台</div>
+          <div class="aieban-topbar-meta"><span></span>本科生事务工作台</div>
           <button type="button" class="aieban-font-toggle"></button>
           <button type="button" class="aieban-theme-toggle"></button>
         </div>

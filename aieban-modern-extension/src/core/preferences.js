@@ -3,7 +3,13 @@
     return localStorage.getItem(THEME_KEY) === "dark" ? "dark" : "light";
   }
 
+  function getInterfaceTheme() {
+    const stored = localStorage.getItem(INTERFACE_THEME_KEY);
+    return stored && AiebanThemes.has(stored) ? stored : AiebanThemes.getDefault();
+  }
+
   function applyTheme(theme = getTheme()) {
+    AiebanThemes.apply(document.documentElement, getInterfaceTheme(), theme);
     document.documentElement.classList.toggle("aieban-theme-dark", theme === "dark");
     document.querySelectorAll(".aieban-theme-toggle").forEach((button) => {
       AiebanIcons.setIcon(button, theme === "dark" ? "themeDark" : "themeLight");
@@ -19,6 +25,7 @@
     applyTheme(theme);
     try {
       Array.from(window.top.frames).forEach((frame) => {
+        AiebanThemes.apply(frame.document.documentElement, getInterfaceTheme(), theme);
         frame.document.documentElement.classList.toggle("aieban-theme-dark", theme === "dark");
         frame.document.querySelectorAll(".aieban-theme-toggle").forEach((button) => {
           AiebanIcons.setIcon(button, theme === "dark" ? "themeDark" : "themeLight");
@@ -39,8 +46,15 @@
     applyThemeToAllFrames(theme);
   }
 
+  function setInterfaceTheme(themeId) {
+    if (!AiebanThemes.has(themeId)) return false;
+    localStorage.setItem(INTERFACE_THEME_KEY, themeId);
+    applyThemeToAllFrames(getTheme());
+    return true;
+  }
+
   function getFontTheme() {
-    return localStorage.getItem(FONT_THEME_KEY) === "sans" ? "sans" : "literary";
+    return localStorage.getItem(FONT_THEME_KEY) === "literary" ? "literary" : "sans";
   }
 
   function applyFontTheme(fontTheme = getFontTheme()) {

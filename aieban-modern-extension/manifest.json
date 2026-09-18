@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AI更易办",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "让事更更容易办！",
   "icons": {
     "16": "assets/icons/icon-16.png",
@@ -20,6 +20,8 @@
       "js": [
         "src/core/constants.js",
         "src/core/icons.js",
+        "src/core/themes.js",
+        "src/themes/luojia.js",
         "src/core/preferences.js",
         "src/core/frames.js",
         "src/core/detect.js",

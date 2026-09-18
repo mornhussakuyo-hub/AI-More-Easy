@@ -26,6 +26,8 @@ AI更易办是一个在本地浏览器中美化 AI易办本科生平台旧式页
 - 安全退出会弹出居中的确认窗口。
 - 多个说明页面会被整理成更清晰的 Markdown 风格卡片。
 - 对成绩、考勤、请假、思政积分、入党进度、服装尺码等页面做了局部美化。
+- 对培养方案、任职经历、评优申报、综合测评 F1/F3/总表等标准事务页提供统一工作台布局。
+- 内置“珞珈工作台”主题令牌系统，支持亮暗模式和字体偏好。
 
 ## 本地安装
 
@@ -68,9 +70,10 @@ http://aieban.whu.edu.cn/eban/*
 
 - `manifest.json`：扩展清单。
 - `src/content.js`：入口调度器，只负责初始化和调用各模块。
-- `src/core/`：常量、偏好设置、frame 判断、页面识别、安全退出。
+- `src/core/`：常量、偏好设置、主题、frame 判断、页面识别、安全退出。
 - `src/layout/`：顶部栏和左侧导航。
 - `src/pages/`：各功能页的 DOM 重写逻辑。
+- `src/themes/`：内置主题定义；主题注册 API 见 `aieban-modern-extension/docs/themes.md`。
 - `src/styles.css`：现代化样式。
 - `assets/`：院徽资源和扩展图标。
 - `assets/icons/`：扩展图标，包含 16、32、48、128 像素版本。
@@ -82,6 +85,12 @@ http://aieban.whu.edu.cn/eban/*
 ```powershell
 cd aieban-modern-extension
 node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('manifest.json','utf8')); const js=m.content_scripts[0].js.map(p=>fs.readFileSync(p,'utf8')).join('\n'); new Function(js); console.log('combined js OK')"
+```
+
+如果已经有页面快照，可以从仓库根目录运行全量无依赖检查：
+
+```bash
+node tools/validate-aieban-snapshots.js
 ```
 
 ### 下载 AI易办原始页面
